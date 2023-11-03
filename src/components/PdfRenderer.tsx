@@ -90,14 +90,14 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               setValue('page', String(currentPage - 1))
             }}
           >
-            <ChevronDownIcon className="h-4 w-4" />
+            <ChevronUpIcon className="h-4 w-4" />
           </Button>
 
           <div className="5 flex items-center gap-1">
             <Input
               {...register('page')}
               className={cn(
-                'h-8 w-12',
+                'h-8 w-12 text-center',
                 errors.page && 'focus-visible:ring-red-500'
               )}
               onKeyDown={(e) => {
@@ -123,7 +123,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               setValue('page', String(currentPage + 1))
             }}
           >
-            <ChevronUpIcon className="h-4 w-4" />
+            <ChevronDownIcon className="h-4 w-4" />
           </Button>
         </div>
 

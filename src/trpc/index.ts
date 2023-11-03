@@ -3,11 +3,13 @@ import { privateProcedure, publicProcedure, router } from './trpc'
 import { TRPCError } from '@trpc/server'
 import { db } from '@/db'
 import { z } from 'zod'
+import { $Enums } from '@prisma/client'
+import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
 
 export const appRouter = router({
   authCallback: publicProcedure.query(async () => {
     const { getUser } = getKindeServerSession()
-    const user = getUser()
+    const user = await getUser()
 
     if (!user.id || !user.email) {
       throw new TRPCError({
@@ -65,6 +67,26 @@ export const appRouter = router({
 
       return file
     }),
+  getFileUploadStatus: privateProcedure
+    .input(
+      z.object({
+        fileId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const file = await db.file.findFirst({
+        where: {
+          id: input.fileId,
+          userId: ctx.userId,
+        },
+      })
+
+      if (!file) {
+        return $Enums.UploadStatus.PENDING
+      }
+
+      return file.uploadStatus
+    }),
   deleteFile: privateProcedure
     .input(
       z.object({
@@ -93,6 +115,59 @@ export const appRouter = router({
       })
 
       return file
+    }),
+  getFileMessages: privateProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(100).nullish(),
+        cursor: z.string().nullish(),
+        fileId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { userId } = ctx
+      const { cursor, fileId } = input
+      const limit = input.limit ?? INFINITE_QUERY_LIMIT
+
+      const file = await db.file.findUnique({
+        where: {
+          id: fileId,
+          userId,
+        },
+      })
+
+      if (!file) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'File not found',
+        })
+      }
+
+      const messages = await db.message.findMany({
+        where: {
+          fileId,
+          userId,
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        take: limit + 1,
+        cursor: cursor ? { id: cursor } : undefined,
+        select: {
+          id: true,
+          isUserMessage: true,
+          createdAt: true,
+          text: true,
+        },
+      })
+
+      const nextCursor =
+        messages.length > limit ? messages.pop()?.id : null
+
+      return {
+        messages,
+        nextCursor,
+      }
     }),
 })
 export type AppRouter = typeof appRouter
