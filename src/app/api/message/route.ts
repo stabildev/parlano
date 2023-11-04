@@ -15,8 +15,7 @@ export const POST = async (req: NextRequest) => {
 
   const { getUser } = getKindeServerSession()
   const user = await getUser()
-
-  const { id: userId } = user
+  const userId = user?.id
 
   if (!userId) {
     return new Response('Unauthorized', { status: 401 })
@@ -51,15 +50,12 @@ export const POST = async (req: NextRequest) => {
 
   const pineconeIndex = pinecone.Index('quill')
 
-  const vectorStore = await PineconeStore.fromExistingIndex(
-    embeddings,
-    {
-      pineconeIndex,
-      filter: {
-        fileId,
-      },
-    }
-  )
+  const vectorStore = await PineconeStore.fromExistingIndex(embeddings, {
+    pineconeIndex,
+    filter: {
+      fileId,
+    },
+  })
 
   const results = await vectorStore.similaritySearch(message, 4)
 
@@ -74,9 +70,7 @@ export const POST = async (req: NextRequest) => {
   })
 
   const formattedPrevMessages = prevMessages.map((message) => ({
-    role: message.isUserMessage
-      ? ('user' as const)
-      : ('assistant' as const),
+    role: message.isUserMessage ? ('user' as const) : ('assistant' as const),
     content: message.text,
   }))
 
