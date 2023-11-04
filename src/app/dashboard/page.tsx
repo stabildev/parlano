@@ -3,7 +3,6 @@ import { db } from '@/db'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { redirect } from 'next/navigation'
 import Dashboard from '@/components/Dashboard'
-import { pinecone } from '@/lib/pinecone'
 
 const Page = async () => {
   const { getUser } = getKindeServerSession()
