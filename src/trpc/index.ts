@@ -46,6 +46,13 @@ export const appRouter = router({
       where: {
         userId: ctx.userId,
       },
+      include: {
+        _count: {
+          select: {
+            messages: true,
+          },
+        },
+      },
     })
 
     return files
