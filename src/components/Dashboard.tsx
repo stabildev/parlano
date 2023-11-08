@@ -109,9 +109,11 @@ const Dashboard = ({ isSubscribed }: { isSubscribed: boolean }) => {
         </div>
       ) : (
         <div className="mt-16 flex flex-col items-center gap-2">
-          <GhostIcon className="h-8 w-8 text-zinc-800" />
+          <GhostIcon className="h-8 w-8 text-zinc-800 dark:text-zinc-600" />
           <h3 className="text-xl font-semibold">Pretty empty around here</h3>
-          <p>Let&apos;s upload your first PDF.</p>
+          <p className="dark:text-zinc-500">
+            Let&apos;s upload your first PDF.
+          </p>
         </div>
       )}
     </main>

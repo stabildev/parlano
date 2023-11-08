@@ -92,7 +92,7 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
           <div className="flex h-full w-full items-center justify-center">
             <label
               htmlFor="dropzone-file"
-              className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-900/50"
+              className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-900/50 dark:hover:bg-zinc-600/50"
             >
               <div className="flex flex-col items-center justify-center pb-6 pt-5">
                 <CloudIcon className="mb-2 h-6 w-6 text-zinc-500" />
