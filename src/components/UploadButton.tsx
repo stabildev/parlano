@@ -12,10 +12,12 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Dropzone from 'react-dropzone'
 import { HoverShine } from '@/components/HoverShine'
+import { cn } from '@/lib/utils'
 
 const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
   const [isUploading, setIsUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
+  const [isHovering, setIsHovering] = useState(false)
 
   const router = useRouter()
 
@@ -52,7 +54,10 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
   return (
     <Dropzone
       multiple={false}
+      onDragEnter={() => setIsHovering(true)}
+      onDragLeave={() => setIsHovering(false)}
       onDrop={async (acceptedFile) => {
+        setIsHovering(false)
         setIsUploading(true)
         const progressInterval = startSimulatedProgress()
 
@@ -92,7 +97,10 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
           <div className="flex h-full w-full items-center justify-center">
             <label
               htmlFor="dropzone-file"
-              className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-900/50 dark:hover:bg-zinc-600/50"
+              className={cn(
+                'flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-zinc-50 dark:bg-zinc-900/50',
+                isHovering && 'hover:bg-zinc-100 dark:hover:bg-zinc-600/50'
+              )}
             >
               <div className="flex flex-col items-center justify-center pb-6 pt-5">
                 <CloudIcon className="mb-2 h-6 w-6 text-zinc-500" />
