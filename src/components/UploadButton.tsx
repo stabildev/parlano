@@ -87,12 +87,12 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
       {({ getRootProps, getInputProps, acceptedFiles }) => (
         <div
           {...getRootProps()}
-          className="m-4 h-64 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-600"
+          className="m-4 h-64 rounded-lg border border-dashed border-zinc-300 dark:border-2 dark:border-zinc-800"
         >
           <div className="flex h-full w-full items-center justify-center">
             <label
               htmlFor="dropzone-file"
-              className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-900"
+              className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-900/50"
             >
               <div className="flex flex-col items-center justify-center pb-6 pt-5">
                 <CloudIcon className="mb-2 h-6 w-6 text-zinc-500" />
@@ -106,11 +106,11 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
               </div>
 
               {acceptedFiles && acceptedFiles.length ? (
-                <div className="flex max-w-xs items-center divide-x divide-zinc-200 overflow-hidden rounded-md bg-white outline outline-[1px] outline-zinc-200">
+                <div className="flex max-w-xs items-center divide-x divide-zinc-200 overflow-hidden rounded-md bg-white outline outline-[1px] outline-zinc-200 dark:divide-zinc-700 dark:bg-zinc-900 dark:outline-zinc-700">
                   <div className="grid h-full place-items-center px-3 py-2">
                     <FileIcon className="h-4 w-4 text-blue-500" />
                   </div>
-                  <div className="h-full truncate px-3 py-2 text-sm">
+                  <div className="h-full truncate px-3 py-2 text-sm dark:text-zinc-300">
                     {acceptedFiles[0].name}
                   </div>
                 </div>
