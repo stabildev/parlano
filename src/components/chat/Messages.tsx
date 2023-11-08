@@ -1,11 +1,11 @@
-import { trpc } from '@/app/_trpc/client'
+import { trpc } from '@/trpc/client'
 import { ChatContext } from '@/components/chat/ChatContext'
 import Message from '@/components/chat/Message'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
 import { Loader2Icon, MessageSquareIcon } from 'lucide-react'
 import { useContext, useEffect, useRef } from 'react'
-import Skeleton from 'react-loading-skeleton'
 import { useIntersection } from '@mantine/hooks'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const Messages = ({ fileId }: { fileId: string }) => {
   const { isLoading: isAiThinking } = useContext(ChatContext)

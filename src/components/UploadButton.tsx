@@ -1,7 +1,7 @@
 'use client'
 
-import { trpc } from '@/app/_trpc/client'
-import { buttonVariants } from '@/components/ui/button'
+import { trpc } from '@/trpc/client'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Progress } from '@/components/ui/progress'
 import { useToast } from '@/components/ui/use-toast'
@@ -11,6 +11,7 @@ import { CloudIcon, FileIcon, Loader2Icon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Dropzone from 'react-dropzone'
+import { HoverShine } from '@/components/HoverShine'
 
 const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
   const [isUploading, setIsUploading] = useState(false)
@@ -86,12 +87,12 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
       {({ getRootProps, getInputProps, acceptedFiles }) => (
         <div
           {...getRootProps()}
-          className="m-4 h-64 rounded-lg border border-dashed border-gray-300"
+          className="m-4 h-64 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-600"
         >
           <div className="flex h-full w-full items-center justify-center">
             <label
               htmlFor="dropzone-file"
-              className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100"
+              className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-900"
             >
               <div className="flex flex-col items-center justify-center pb-6 pt-5">
                 <CloudIcon className="mb-2 h-6 w-6 text-zinc-500" />
@@ -152,14 +153,18 @@ const UploadButton = ({ isSubscribed }: { isSubscribed: boolean }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger
-        onClick={() => setIsOpen(true)}
-        className={buttonVariants()}
-      >
-        Upload PDF
+      <DialogTrigger asChild>
+        <HoverShine>
+          <Button
+            className="bg-gradient-to-r from-purple-600 to-rose-600 shadow"
+            onClick={() => setIsOpen(true)}
+          >
+            Upload PDF
+          </Button>
+        </HoverShine>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="dark:border-neutral-800">
         <UploadDropzone isSubscribed={isSubscribed} />
       </DialogContent>
     </Dialog>

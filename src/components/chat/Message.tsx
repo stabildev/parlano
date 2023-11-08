@@ -45,7 +45,8 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
           <div
             className={cn('inline-block rounded-lg px-4 py-2', {
               'bg-blue-600 text-white': message.isUserMessage,
-              'bg-gray-200 text-gray-900': !message.isUserMessage,
+              'bg-gray-200 text-gray-900 dark:border dark:border-zinc-800 dark:bg-zinc-900 dark:text-white':
+                !message.isUserMessage,
               'rounded-br-none':
                 !isNextMessageSamePerson && message.isUserMessage,
               'rounded-bl-none':
@@ -55,7 +56,8 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
             {typeof message.text === 'string' ? (
               <ReactMarkdown
                 className={cn('prose', {
-                  'text-zinc-50': message.isUserMessage,
+                  'text-zinc-50 dark:text-white': message.isUserMessage,
+                  'dark:text-zinc-300': !message.isUserMessage,
                 })}
               >
                 {message.text}

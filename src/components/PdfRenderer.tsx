@@ -44,18 +44,14 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [scale, setScale] = useState(1.0)
   const [rotation, setRotation] = useState(0)
-  const [renderedScale, setRenderedScale] = useState<number | null>(
-    null
-  )
+  const [renderedScale, setRenderedScale] = useState<number | null>(null)
 
   const isLoading = renderedScale !== scale
 
   const customPageValidator = z.object({
     page: z
       .string()
-      .refine(
-        (value) => Number(value) > 0 && Number(value) <= pageCount
-      ),
+      .refine((value) => Number(value) > 0 && Number(value) <= pageCount),
   })
 
   type CustomPageValidator = z.infer<typeof customPageValidator>
@@ -78,7 +74,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
   }
 
   return (
-    <div className="flex w-full flex-col items-center rounded-md bg-white shadow">
+    <div className="flex w-full flex-col items-center rounded-md bg-white shadow dark:border dark:border-zinc-800 dark:bg-zinc-900">
       <div className="flex h-14 w-full items-center justify-between border-b border-zinc-200 px-2">
         <div className="flex items-center gap-1.5">
           <Button
@@ -169,10 +165,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
       </div>
 
       <div className="max-h-screen w-full flex-1">
-        <SimpleBar
-          autoHide={false}
-          className="max-h-[calc(100vh-10rem)]"
-        >
+        <SimpleBar autoHide={false} className="max-h-[calc(100vh-10rem)]">
           <div ref={ref}>
             <Document
               file={url}

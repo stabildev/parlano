@@ -7,8 +7,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function constructMetadata({
-  title = 'Quill – Chat with your PDFs',
-  description = 'Quill makes it easy to chat with your PDFs.',
+  title = 'Parlano – Chat with your PDFs',
+  description = 'Parlano makes it easy to chat with your PDFs.',
   image = '/thumbnail.png',
   icons = '/favicon.ico',
   noIndex = true,

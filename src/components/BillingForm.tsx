@@ -1,6 +1,6 @@
 'use client'
 
-import { trpc } from '@/app/_trpc/client'
+import { trpc } from '@/trpc/client'
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import { Button } from '@/components/ui/button'
 import {
@@ -56,7 +56,7 @@ const BillingForm = ({
           </CardHeader>
 
           <CardFooter className="flex flex-col items-start space-y-2 md:flex-row md:justify-between md:space-x-0">
-            <Button type="submit">
+            <Button type="submit" variant="outline">
               {isLoading ? (
                 <Loader2Icon className="h-4 w-4 animate-spin" />
               ) : null}
@@ -66,7 +66,7 @@ const BillingForm = ({
             </Button>
 
             {subscriptionPlan.isSubscribed ? (
-              <p className="rounded-full text-xs font-medium">
+              <p className="rounded-full text-xs font-medium opacity-70">
                 {subscriptionPlan.isCanceled
                   ? 'Your plan will be canceled on '
                   : 'Your plan renews on '}

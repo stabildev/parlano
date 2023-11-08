@@ -1,14 +1,19 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, PT_Serif } from 'next/font/google'
 import './globals.css'
 import { cn, constructMetadata } from '@/lib/utils'
 import Navbar from '@/components/Navbar'
 import Providers from '@/components/Providers'
-import 'react-loading-skeleton/dist/skeleton.css'
 import { Toaster } from '@/components/ui/toaster'
 import 'simplebar-react/dist/simplebar.min.css'
 
 const inter = Inter({ subsets: ['latin'] })
+const ptSerif = PT_Serif({
+  subsets: ['latin'],
+  weight: '700',
+  style: 'italic',
+  variable: '--display',
+})
 
 export const metadata: Metadata = constructMetadata()
 
@@ -18,12 +23,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="light">
-      <Providers>
+    <html lang="en" suppressHydrationWarning>
+      <Providers
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
         <body
           className={cn(
-            'grainy min-h-screen font-sans antialiased',
-            inter.className
+            'min-h-screen font-sans antialiased',
+            inter.className,
+            ptSerif.variable
           )}
         >
           <Toaster />

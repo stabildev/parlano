@@ -88,7 +88,7 @@ const onUploadComplete = async ({
 
     // vectorize and index entire document
 
-    const pineconeIndex = pinecone.index('quill')
+    const pineconeIndex = pinecone.index('parlano')
 
     const embeddings = new OpenAIEmbeddings({
       openAIApiKey: process.env.OPENAI_API_KEY!,

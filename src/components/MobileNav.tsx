@@ -22,7 +22,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
       </Button>
       {open && (
         <div className="fixed inset-0 z-0 w-full animate-in fade-in-20 slide-in-from-top-5">
-          <ul className="absolute grid w-full gap-3 border-b border-zinc-200 bg-white px-10 pb-8 pt-20 shadow-xl">
+          <ul className="absolute grid w-full gap-3 border-b border-zinc-200 bg-white px-10 pb-8 pt-20 shadow-xl dark:border-zinc-800 dark:bg-zinc-950">
             {isAuth ? (
               <>
                 <li>
@@ -49,12 +49,12 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
               <>
                 <li>
                   <Link
-                    className="flex w-full items-center font-semibold text-green-600"
+                    className="flex w-full items-center bg-gradient-to-r from-violet-600 to-rose-600 to-50% bg-clip-text font-semibold text-transparent"
                     href="/sign-up"
                     onClick={() => setOpen(false)}
                   >
                     Get started
-                    <ArrowRightIcon className="ml-2 h-5 w-5" />
+                    <ArrowRightIcon className="ml-2 h-5 w-5 text-rose-500" />
                   </Link>
                 </li>
                 <li className="my-3 h-px w-full bg-gray-300" />
