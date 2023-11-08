@@ -7,7 +7,6 @@ import { PineconeStore } from 'langchain/vectorstores/pinecone'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
 import { PLANS } from '@/config/stripe'
-import { UploadBuilder } from 'uploadthing/server'
 
 const f = createUploadthing()
 
