@@ -6,6 +6,6 @@ export const config = {
 
 export default withAuth(async function middleware(req: any) {}, {
   isAuthorized: ({ user }: { user: any }) => {
-    return !!user?.id
+    return user?.id
   },
 })
