@@ -11,14 +11,20 @@ import { PLANS } from '@/config/stripe'
 const f = createUploadthing()
 
 const middleware = async () => {
+  console.log('middleware')
   const { getUser } = getKindeServerSession()
   const user = await getUser()
 
   if (!user || !user.id) {
+    console.log('!! no user!!')
     throw new Error('Unauthorized')
   }
 
+  console.log('user: ', user)
+
   const subscriptionPlan = await getUserSubscriptionPlan()
+
+  console.log('subscriptionPlan: ', subscriptionPlan)
 
   return { subscriptionPlan, userId: user.id }
 }
@@ -34,6 +40,19 @@ const onUploadComplete = async ({
     url: string
   }
 }) => {
+  // avoid duplicate uploads
+  console.log('checking for existing file')
+
+  const existingFile = await db.file.findFirst({
+    where: { key: file.key },
+  })
+
+  if (existingFile) {
+    console.log('file already exists. returning')
+    return
+  }
+
+  console.log('creating db file')
   const createdFile = await db.file.create({
     data: {
       key: file.key,
@@ -44,17 +63,13 @@ const onUploadComplete = async ({
     },
   })
 
-  // avoid duplicate uploads
-  const existingFile = await db.file.findFirst({
-    where: { key: file.key },
-  })
-
-  if (existingFile) {
-    return
-  }
-
   try {
-    const response = await fetch(`https://uploadthing.com/f/${file.key}`)
+    console.log('fetching file')
+    const response = await fetch(createdFile.url, {
+      redirect: 'follow',
+    })
+
+    console.log('got file')
 
     const blob = await response.blob()
     const loader = new PDFLoader(blob)
