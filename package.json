@@ -31,6 +31,7 @@
     "ai": "^2.2.21",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "cookie": "^0.6.0",
     "date-fns": "^2.30.0",
     "langchain": "^0.0.184",
     "lucide-react": "^0.292.0",
