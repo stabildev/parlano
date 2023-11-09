@@ -20,7 +20,7 @@ const Dashboard = ({ isSubscribed }: { isSubscribed: boolean }) => {
 
   const utils = trpc.useUtils()
 
-  const { data: files, isLoading } = trpc.getUserFiles.useQuery()
+  const { data: files, isPending } = trpc.getUserFiles.useQuery()
 
   const { mutate: deleteFile } = trpc.deleteFile.useMutation({
     onSuccess: () => {
@@ -101,7 +101,7 @@ const Dashboard = ({ isSubscribed }: { isSubscribed: boolean }) => {
               </li>
             ))}
         </ul>
-      ) : isLoading ? (
+      ) : isPending ? (
         <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           <Skeleton className="my-2 h-36" />
           <Skeleton className="my-2 h-36" />

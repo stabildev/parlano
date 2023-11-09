@@ -9,17 +9,21 @@ import { ChevronLeft, Loader2Icon, XCircleIcon } from 'lucide-react'
 import Link from 'next/link'
 
 const ChatWrapper = ({ fileId }: { fileId: string }) => {
-  const { data: status, isLoading } = trpc.getFileUploadStatus.useQuery(
+  const { data: status, isPending } = trpc.getFileUploadStatus.useQuery(
     {
       fileId,
     },
     {
-      refetchInterval: (status) =>
-        status === 'SUCCESS' || status === 'FAILED' ? false : 500,
+      refetchInterval: (query) => {
+        console.log(query)
+        return query.state.data === 'SUCCESS' || query.state.data === 'FAILED'
+          ? false
+          : 500
+      },
     }
   )
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="relative flex min-h-full flex-col justify-between gap-2 divide-y divide-zinc-200 bg-zinc-50 dark:divide-zinc-800 dark:bg-zinc-950">
         <div className="mb-28 mt-6 flex flex-1 flex-col items-center justify-center">

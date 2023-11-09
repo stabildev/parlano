@@ -6,11 +6,12 @@ import { Loader2Icon, MessageSquareIcon } from 'lucide-react'
 import { useContext, useEffect, useRef } from 'react'
 import { useIntersection } from '@mantine/hooks'
 import { Skeleton } from '@/components/ui/skeleton'
+import { keepPreviousData } from '@tanstack/react-query'
 
 const Messages = ({ fileId }: { fileId: string }) => {
   const { isLoading: isAiThinking } = useContext(ChatContext)
 
-  const { data, isLoading, fetchNextPage } =
+  const { data, isPending, fetchNextPage } =
     trpc.getFileMessages.useInfiniteQuery(
       {
         fileId,
@@ -18,7 +19,7 @@ const Messages = ({ fileId }: { fileId: string }) => {
       },
       {
         getNextPageParam: (lastPage) => lastPage?.nextCursor,
-        keepPreviousData: true,
+        placeholderData: keepPreviousData,
       }
     )
   const messages = data?.pages.flatMap((page) => page.messages) ?? []
@@ -77,7 +78,7 @@ const Messages = ({ fileId }: { fileId: string }) => {
             )
           }
         })
-      ) : isLoading ? (
+      ) : isPending ? (
         <div className="flex w-full flex-col gap-2">
           <Skeleton className="h-16" />
           <Skeleton className="h-16" />

@@ -1,11 +1,7 @@
 'use client'
 
 import { buttonVariants } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { ExpandIcon, Loader2Icon } from 'lucide-react'
 import { useState } from 'react'
 import SimpleBar from 'simplebar-react'
@@ -35,11 +31,8 @@ const PdfFullScreen = ({ fileUrl }: PdfFullScreenProps) => {
       >
         <ExpandIcon className="h-4 w-4" />
       </DialogTrigger>
-      <DialogContent className="w-full max-w-7xl">
-        <SimpleBar
-          autoHide={false}
-          className="mt-6 max-h-[calc(100vh-10rem)]"
-        >
+      <DialogContent className="w-full max-w-7xl dark:border-zinc-800">
+        <SimpleBar autoHide={false} className="mt-6 max-h-[calc(100vh-10rem)]">
           <div ref={ref}>
             <Document
               file={fileUrl}
@@ -61,11 +54,7 @@ const PdfFullScreen = ({ fileUrl }: PdfFullScreenProps) => {
               }}
             >
               {new Array(pageCount).fill(0).map((_, index) => (
-                <Page
-                  key={index}
-                  width={width || 1}
-                  pageNumber={index + 1}
-                />
+                <Page key={index} width={width || 1} pageNumber={index + 1} />
               ))}
             </Document>
           </div>
