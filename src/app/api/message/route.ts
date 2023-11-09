@@ -69,11 +69,6 @@ export const POST = async (req: NextRequest) => {
     take: 6,
   })
 
-  const formattedPrevMessages = prevMessages.map((message) => ({
-    role: message.isUserMessage ? ('user' as const) : ('assistant' as const),
-    content: message.text,
-  }))
-
   const response = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
     temperature: 0,
@@ -91,10 +86,11 @@ export const POST = async (req: NextRequest) => {
   \n----------------\n
   
   PREVIOUS CONVERSATION:
-  ${formattedPrevMessages.map((message) => {
-    if (message.role === 'user') return `User: ${message.content}\n`
-    return `Assistant: ${message.content}\n`
-  })}
+  ${prevMessages.map((message) =>
+    message.isUserMessage
+      ? `User: ${message.text}`
+      : `Assistant: ${message.text}`
+  )}).join('\n\n')}
   
   \n----------------\n
   
