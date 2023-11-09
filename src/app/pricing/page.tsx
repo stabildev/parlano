@@ -177,7 +177,7 @@ const Page = async () => {
                   ))}
                 </ul>
 
-                <div className="border-t border-zinc-200" />
+                <div className="border-t border-zinc-200 dark:border-zinc-700" />
                 <div className="p-5">
                   {plan === 'Free' ? (
                     <Link
