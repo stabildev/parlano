@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          'min-h-screen font-sans antialiased',
+          'font-sans min-h-screen antialiased',
           inter.className,
           ptSerif.variable
         )}
@@ -41,7 +41,7 @@ export default function RootLayout({
             <div className="flex min-h-[calc(100vh-3.5rem)] flex-col">
               <div className="flex-grow">{children}</div>
               <footer className="mx-auto flex flex-row items-center p-4 text-xs opacity-20">
-                © 2023{' '}
+                © 2023&nbsp;
                 <a
                   href="https://hardcoded.digital"
                   className="underline-offset-2 hover:underline"
