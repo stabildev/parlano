@@ -1,6 +1,6 @@
 'use client'
 
-import { trpc } from '@/trpc/client'
+import { trpc } from '@/app/_trpc/client'
 import UploadButton from '@/components/UploadButton'
 import {
   GhostIcon,

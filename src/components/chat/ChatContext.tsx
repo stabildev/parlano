@@ -1,4 +1,4 @@
-import { trpc } from '@/trpc/client'
+import { trpc } from '@/app/_trpc/client'
 import { useToast } from '@/components/ui/use-toast'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
 import { useMutation } from '@tanstack/react-query'

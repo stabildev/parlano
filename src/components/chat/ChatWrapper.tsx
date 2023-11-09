@@ -1,6 +1,6 @@
 'use client'
 
-import { trpc } from '@/trpc/client'
+import { trpc } from '@/app/_trpc/client'
 import { ChatContextProvider } from '@/components/chat/ChatContext'
 import ChatInput from '@/components/chat/ChatInput'
 import Messages from '@/components/chat/Messages'

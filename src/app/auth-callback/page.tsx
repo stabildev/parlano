@@ -1,6 +1,6 @@
 'use client'
 
-import { trpc } from '@/trpc/client'
+import { trpc } from '@/app/_trpc/client'
 import { Loader2Icon } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 

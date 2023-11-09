@@ -1,10 +1,13 @@
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+
 import { privateProcedure, publicProcedure, router } from './trpc'
 import { TRPCError } from '@trpc/server'
-import { db } from '@/db'
 import { z } from 'zod'
-import { $Enums } from '@prisma/client'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
+
+import { $Enums } from '@prisma/client'
+import { db } from '@/db'
+
 import { getUserSubscriptionPlan, stripe } from '@/lib/stripe'
 import { PLANS } from '@/config/stripe'
 
@@ -28,7 +31,7 @@ export const appRouter = router({
     })
 
     if (!dbUser) {
-      // create user
+      // create db user
       await db.user.create({
         data: {
           id: user.id,
@@ -41,6 +44,7 @@ export const appRouter = router({
       success: true,
     }
   }),
+
   getUserFiles: privateProcedure.query(async ({ ctx }) => {
     const files = await db.file.findMany({
       where: {
@@ -57,6 +61,7 @@ export const appRouter = router({
 
     return files
   }),
+
   getFile: privateProcedure
     .input(z.object({ key: z.string() }))
     .mutation(async ({ ctx, input }) => {
@@ -76,6 +81,7 @@ export const appRouter = router({
 
       return file
     }),
+
   getFileUploadStatus: privateProcedure
     .input(
       z.object({
@@ -96,6 +102,7 @@ export const appRouter = router({
 
       return file.uploadStatus
     }),
+
   deleteFile: privateProcedure
     .input(
       z.object({
@@ -109,6 +116,8 @@ export const appRouter = router({
           userId: ctx.userId,
         },
       })
+
+      // todo delete file from uploadthing
 
       if (!file) {
         throw new TRPCError({
@@ -125,6 +134,7 @@ export const appRouter = router({
 
       return file
     }),
+
   getFileMessages: privateProcedure
     .input(
       z.object({
@@ -177,6 +187,7 @@ export const appRouter = router({
         nextCursor,
       }
     }),
+
   createStripeSession: privateProcedure.mutation(async ({ ctx }) => {
     const { userId } = ctx
 

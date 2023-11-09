@@ -1,4 +1,4 @@
-import { trpc } from '@/trpc/client'
+import { trpc } from '@/app/_trpc/client'
 import { ChatContext } from '@/components/chat/ChatContext'
 import Message from '@/components/chat/Message'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'

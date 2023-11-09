@@ -1,6 +1,6 @@
 'use client'
 
-import { trpc } from '@/trpc/client'
+import { trpc } from '@/app/_trpc/client'
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import { Button } from '@/components/ui/button'
 import {

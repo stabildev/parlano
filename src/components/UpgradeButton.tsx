@@ -1,6 +1,6 @@
 'use client'
 
-import { trpc } from '@/trpc/client'
+import { trpc } from '@/app/_trpc/client'
 import { Button } from '@/components/ui/button'
 import { ArrowRightIcon } from 'lucide-react'
 
