@@ -2,7 +2,7 @@ import { trpc } from '@/app/_trpc/client'
 import { useToast } from '@/components/ui/use-toast'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
 import { useMutation } from '@tanstack/react-query'
-import { ChangeEvent, createContext, useRef, useState } from 'react'
+import { ChangeEvent, createContext, useState } from 'react'
 
 type StreamResponse = {
   addMessage: () => void
@@ -30,8 +30,6 @@ export const ChatContextProvider = ({
 
   const { toast } = useToast()
 
-  const backupMessage = useRef('')
-
   const utils = trpc.useUtils()
 
   const { mutate: sendMessage } = useMutation({
@@ -48,51 +46,58 @@ export const ChatContextProvider = ({
       return response.body
     },
     onMutate: async ({ message }) => {
-      backupMessage.current = message
+      // back up the message for restoration in case of error
+      const backupMessage = message
+
+      // clear the message input
       setMessage('')
 
+      // back up the message history for restoration in case of error
+      const backupHistory =
+        utils.getFileMessages
+          .getInfiniteData()
+          ?.pages.flatMap((page) => page.messages) ?? []
+
+      // cancel ongoing queries
       await utils.getFileMessages.cancel()
 
-      const previousMessages = utils.getFileMessages.getInfiniteData()
+      // optimistic update
+      const newMessage = {
+        createdAt: new Date().toISOString(),
+        id: crypto.randomUUID(),
+        text: message,
+        isUserMessage: true,
+      }
 
+      // add the new message to the top of the first page
       utils.getFileMessages.setInfiniteData(
         { fileId, limit: INFINITE_QUERY_LIMIT },
-        (old) => {
-          if (!old) {
+        (data) => {
+          if (!data) {
             return {
               pages: [],
               pageParams: [],
             }
           }
 
-          let newPages = [...old.pages]
-          let latestPage = newPages[0]!
-
-          latestPage.messages = [
-            {
-              createdAt: new Date().toISOString(),
-              id: crypto.randomUUID(),
-              text: message,
-              isUserMessage: true,
-            },
-            ...latestPage.messages,
-          ]
-
-          newPages[0] = latestPage
-
           return {
-            ...old,
-            pages: newPages,
+            ...data,
+            pages: data.pages.map((page, index) => ({
+              ...page,
+              messages: [
+                ...(index === 0 ? [newMessage] : []),
+                ...page.messages,
+              ],
+            })),
           }
         }
       )
 
+      // set loading state
       setIsLoading(true)
 
-      return {
-        previousMessages:
-          previousMessages?.pages.flatMap((page) => page.messages) ?? [],
-      }
+      // add backup message and history to context
+      return { backupMessage, backupHistory }
     },
     onSuccess: async (stream) => {
       setIsLoading(false)
@@ -125,34 +130,24 @@ export const ChatContextProvider = ({
         // append chunk to the actual message
         utils.getFileMessages.setInfiniteData(
           { fileId, limit: INFINITE_QUERY_LIMIT },
-          (old) => {
-            if (!old) {
+          (data) => {
+            if (!data) {
               return {
                 pages: [],
                 pageParams: [],
               }
             }
 
-            let isAiResponseCreated = old.pages.some((page) =>
+            // check if the ai response message has already been created
+            const isAiResponseCreated = data.pages.some((page) =>
               page.messages.some((message) => message.id === 'ai-response')
             )
 
-            let updatedPages = old.pages.map((page) => {
-              if (page === old.pages[0]) {
-                let updatedMessages
-
-                if (!isAiResponseCreated) {
-                  updatedMessages = [
-                    {
-                      createdAt: new Date().toISOString(),
-                      id: 'ai-response',
-                      text: accResponse,
-                      isUserMessage: false,
-                    },
-                    ...page.messages,
-                  ]
-                } else {
-                  updatedMessages = page.messages.map((message) => {
+            const pages = isAiResponseCreated
+              ? // if the ai response message has already been created, update its text
+                data.pages.map((page) => ({
+                  ...page,
+                  messages: page.messages.map((message) => {
                     if (message.id === 'ai-response') {
                       return {
                         ...message,
@@ -160,36 +155,45 @@ export const ChatContextProvider = ({
                       }
                     }
                     return message
-                  })
-                }
-
-                return {
+                  }),
+                }))
+              : // otherwise, create the ai response message
+                data.pages.map((page, index) => ({
                   ...page,
-                  messages: updatedMessages,
-                }
-              }
-
-              return page
-            })
+                  messages: [
+                    ...(index === 0
+                      ? [
+                          {
+                            createdAt: new Date().toISOString(),
+                            id: 'ai-response',
+                            text: accResponse,
+                            isUserMessage: false,
+                          },
+                        ]
+                      : []),
+                    ...page.messages,
+                  ],
+                }))
 
             return {
-              ...old,
-              pages: updatedPages,
+              ...data,
+              pages,
             }
           }
         )
       }
     },
     onError: (_, __, context) => {
-      setMessage(backupMessage.current)
+      setMessage(context?.backupMessage ?? '')
       utils.getFileMessages.setData(
         { fileId },
-        { messages: context?.previousMessages ?? [] }
+        { messages: context?.backupHistory ?? [] }
       )
     },
     onSettled: async () => {
       setIsLoading(false)
 
+      // invalidate the query to refetch the data
       await utils.getFileMessages.invalidate({ fileId })
     },
   })

@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/tooltip'
 import { PLANS } from '@/config/stripe'
 import { cn } from '@/lib/utils'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/dist/server'
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import {
   ArrowRightIcon,
   CheckIcon,
@@ -107,7 +107,7 @@ const Page = async () => {
                 )}
               >
                 {plan === 'Pro' && (
-                  <div className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-purple-600 to-rose-600 px-3 py-2 text-sm font-medium text-white shadow">
+                  <div className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-violet-600 to-rose-600 px-3 py-2 text-sm font-medium text-white shadow">
                     Upgrade now
                   </div>
                 )}
@@ -197,7 +197,8 @@ const Page = async () => {
                       href="/sign-in"
                       className={buttonVariants({
                         className:
-                          'w-full bg-gradient-to-r from-purple-600 to-rose-500',
+                          'w-full bg-gradient-to-r from-violet-600 to-rose-600',
+                        variant: 'secondary',
                       })}
                     >
                       {user ? 'Upgrade now' : 'Sign up'}

@@ -27,21 +27,33 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <TrpcProvider>
-          <body
-            className={cn(
-              'min-h-screen font-sans antialiased',
-              inter.className,
-              ptSerif.variable
-            )}
-          >
+      <body
+        className={cn(
+          'min-h-screen font-sans antialiased',
+          inter.className,
+          ptSerif.variable
+        )}
+      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <TrpcProvider>
             <Toaster />
             <Navbar />
-            {children}
-          </body>
-        </TrpcProvider>
-      </ThemeProvider>
+            <div className="flex min-h-[calc(100vh-3.5rem)] flex-col">
+              <div className="flex-grow">{children}</div>
+              <footer className="mx-auto flex flex-row items-center p-4 text-xs opacity-20">
+                © 2023{' '}
+                <a
+                  href="https://hardcoded.digital"
+                  className="underline-offset-2 hover:underline"
+                >
+                  Hardcoded Digital
+                </a>
+                . Portfolio demonstration only.
+              </footer>
+            </div>
+          </TrpcProvider>
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

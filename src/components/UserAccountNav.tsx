@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
-import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/dist/components'
+import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components'
 import { User2Icon, UserIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'

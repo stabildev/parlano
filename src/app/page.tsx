@@ -17,7 +17,7 @@ export default function Home() {
         </div>
         <h1 className="max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl">
           Chat with your{' '}
-          <span className="bg-gradient-to-r from-violet-600 to-rose-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-violet-600 to-rose-600 bg-clip-text text-transparent">
             documents
           </span>{' '}
           in seconds.
@@ -30,7 +30,8 @@ export default function Home() {
           <Link
             className={buttonVariants({
               size: 'lg',
-              className: 'bg-gradient-to-r from-violet-600 to-rose-500 shadow',
+              variant: 'secondary',
+              className: 'bg-gradient-to-r from-violet-600 to-rose-600 shadow',
             })}
             href="/dashboard"
             target="_blank"
@@ -63,6 +64,7 @@ export default function Home() {
                   <Image
                     src="/dashboard-preview.jpg"
                     alt="product preview"
+                    priority
                     width={1364}
                     height={866}
                     quality={100}
@@ -93,7 +95,7 @@ export default function Home() {
         <div className="mb-12 px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center">
             <h2 className="mt-2 py-2 text-4xl font-bold sm:text-5xl">
-              <span className="bg-gradient-to-r from-violet-600 to-rose-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-violet-600 to-rose-600 bg-clip-text text-transparent">
                 Start chatting
               </span>{' '}
               in minutes

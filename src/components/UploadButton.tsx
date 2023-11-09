@@ -166,7 +166,8 @@ const UploadButton = ({ isSubscribed }: { isSubscribed: boolean }) => {
       <DialogTrigger asChild>
         <HoverShine>
           <Button
-            className="bg-gradient-to-r from-purple-600 to-rose-600 shadow"
+            className="bg-gradient-to-r from-violet-600 to-rose-600 shadow"
+            variant="secondary"
             onClick={() => setIsOpen(true)}
           >
             Upload PDF

@@ -51,7 +51,8 @@ const Navbar = async () => {
                     className={buttonVariants({
                       size: 'sm',
                       className:
-                        'bg-gradient-to-r from-violet-600 to-rose-500 shadow',
+                        'bg-gradient-to-r from-violet-600 to-rose-600 shadow',
+                      variant: 'secondary',
                     })}
                   >
                     Get started <ArrowRightIcon className="ml-2 h-5 w-5" />

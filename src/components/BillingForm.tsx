@@ -35,6 +35,13 @@ const BillingForm = ({
           })
         }
       },
+      onError: (err) => {
+        toast({
+          title: 'There was a problem',
+          description: err.message,
+          variant: 'destructive',
+        })
+      },
     })
 
   return (
@@ -58,7 +65,7 @@ const BillingForm = ({
           <CardFooter className="flex flex-col items-start space-y-2 md:flex-row md:justify-between md:space-x-0">
             <Button type="submit" variant="outline">
               {isPending ? (
-                <Loader2Icon className="h-4 w-4 animate-spin" />
+                <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
               {subscriptionPlan.isSubscribed
                 ? 'Manage Subscription'

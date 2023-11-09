@@ -43,7 +43,8 @@ const ChatInput = ({ disabled }: { disabled?: boolean }) => {
                 }}
                 aria-label="send message"
                 disabled={disabled || isLoading}
-                className="absolute bottom-1.5 right-[8px] bg-gradient-to-tr from-purple-600 to-rose-600 shadow"
+                className="absolute bottom-1.5 right-[8px] bg-gradient-to-tr from-violet-600 to-rose-600 shadow"
+                variant="secondary"
               >
                 <SendIcon className="h-4 w-4" />
               </Button>

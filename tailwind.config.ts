@@ -16,7 +16,6 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ['Inter', 'sans-serif'],
       display: ['ptSerif', 'serif'],
     },
     extend: {

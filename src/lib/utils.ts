@@ -1,5 +1,5 @@
 import { type ClassValue, clsx } from 'clsx'
-import { Metadata } from 'next'
+import { type Metadata } from 'next/types'
 import { twMerge } from 'tailwind-merge'
 
 export function cn(...inputs: ClassValue[]) {

@@ -73,7 +73,7 @@ const Dashboard = ({ isSubscribed }: { isSubscribed: boolean }) => {
                   className="flex flex-col gap-2"
                 >
                   <div className="flex w-full items-center justify-between space-x-6 px-6 pt-6">
-                    <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gradient-to-r from-purple-500 to-rose-500 dark:opacity-80" />
+                    <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gradient-to-r from-violet-500 to-rose-600 dark:opacity-80" />
                     <div className="flex-1 truncate">
                       <div className="flex items-center space-x-3">
                         <h3 className="truncate text-lg font-medium text-zinc-900 dark:text-zinc-200">
@@ -84,7 +84,7 @@ const Dashboard = ({ isSubscribed }: { isSubscribed: boolean }) => {
                   </div>
                 </Link>
 
-                <div className="mt-4 grid grid-cols-3 place-items-center gap-6 px-6 py-2 text-xs text-zinc-500">
+                <div className="mt-4 grid grid-cols-3 place-items-center gap-6 px-4 py-2 text-xs text-zinc-500">
                   <div className="flex items-center gap-2">
                     <PlusIcon className="h-4 w-4" />
                     {format(new Date(file.createdAt), 'MMM yyyy')}
@@ -98,8 +98,8 @@ const Dashboard = ({ isSubscribed }: { isSubscribed: boolean }) => {
                   <Button
                     onClick={() => deleteFile({ id: file.id })}
                     size="sm"
-                    variant="destructive"
-                    className="w-full"
+                    variant="ghost"
+                    className="w-full hover:text-destructive"
                   >
                     {deletingFile === file.id ? (
                       <Loader2Icon className="h-4 w-4 animate-spin" />

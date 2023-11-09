@@ -13,7 +13,8 @@ const UpgradeButton = () => {
   return (
     <Button
       onClick={() => createStripeSession()}
-      className="w-full bg-gradient-to-r from-purple-600 to-rose-500"
+      className="w-full bg-gradient-to-r from-violet-600 to-rose-600"
+      variant="secondary"
     >
       Upgrade now <ArrowRightIcon className="ml-1.5 h-5 w-5" />
     </Button>
