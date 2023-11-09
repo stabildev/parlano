@@ -18,7 +18,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
   return (
     <div className="sm:hidden">
       <Button variant="ghost" onClick={() => setOpen((prev) => !prev)}>
-        <MenuIcon className="relative z-50 h-5 w-5 text-zinc-700" />
+        <MenuIcon className="relative z-50 h-5 w-5" />
       </Button>
       {open && (
         <div className="fixed inset-0 z-0 w-full animate-in fade-in-20 slide-in-from-top-5">

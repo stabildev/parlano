@@ -21,7 +21,7 @@ const Navbar = async () => {
         <div className="flex h-14 items-center justify-between">
           <Link
             href="/"
-            className="z-40 flex font-display text-3xl font-semibold"
+            className="z-40 flex px-2 font-display text-3xl font-semibold"
           >
             parlano.
           </Link>
