@@ -10,6 +10,7 @@ import { db } from '@/db'
 
 import { getUserSubscriptionPlan, stripe } from '@/lib/stripe'
 import { PLANS } from '@/config/stripe'
+import { utapi } from '@/server/utapi'
 
 export const appRouter = router({
   authCallback: publicProcedure.query(async () => {
@@ -117,12 +118,20 @@ export const appRouter = router({
         },
       })
 
-      // todo delete file from uploadthing
-
       if (!file) {
         throw new TRPCError({
           code: 'NOT_FOUND',
           message: 'File not found',
+        })
+      }
+
+      // delete from uploadthing
+      const deleted = await utapi.deleteFiles(file.key)
+
+      if (!deleted) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Failed to delete file from server',
         })
       }
 

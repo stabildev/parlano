@@ -14,6 +14,7 @@ import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useToast } from '@/components/ui/use-toast'
 
 const Dashboard = ({ isSubscribed }: { isSubscribed: boolean }) => {
   const [deletingFile, setDeletingFile] = useState<string | null>(null)
@@ -22,9 +23,18 @@ const Dashboard = ({ isSubscribed }: { isSubscribed: boolean }) => {
 
   const { data: files, isPending } = trpc.getUserFiles.useQuery()
 
+  const { toast } = useToast()
+
   const { mutate: deleteFile } = trpc.deleteFile.useMutation({
     onSuccess: () => {
       utils.getUserFiles.invalidate()
+    },
+    onError: (err) => {
+      toast({
+        title: 'Error deleting file',
+        description: 'Please try again later.',
+        variant: 'destructive',
+      })
     },
     onMutate: ({ id }) => {
       setDeletingFile(id)

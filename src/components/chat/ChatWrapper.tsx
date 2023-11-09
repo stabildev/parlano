@@ -15,7 +15,6 @@ const ChatWrapper = ({ fileId }: { fileId: string }) => {
     },
     {
       refetchInterval: (query) => {
-        console.log(query)
         return query.state.data === 'SUCCESS' || query.state.data === 'FAILED'
           ? false
           : 500
