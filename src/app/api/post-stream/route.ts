@@ -1,5 +1,5 @@
 import { db } from '@/db'
-import { sendMessageValidator } from '@/lib/validators/SendMessageValidator'
+import { receiveMessageValidator } from '@/lib/validators/ReceiveMessageValidator'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 
 export const POST = async (req: Request) => {
@@ -30,7 +30,7 @@ export const POST = async (req: Request) => {
   // get complete message and file id
   const body = await req.json()
 
-  const { fileId, message } = sendMessageValidator.parse(body)
+  const { fileId, message } = receiveMessageValidator.parse(body)
 
   if (!fileId || !message) {
     return new Response('Bad request', { status: 400 })
