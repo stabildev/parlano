@@ -1,5 +1,6 @@
 import { SendMessageValidator } from '@/lib/validators/SendMessageValidator'
 import { NextRequest } from 'next/server'
+import { OpenAIStream } from 'ai'
 
 export const GET = async (req: NextRequest) => {
   const message = req.nextUrl.searchParams.get('message')

@@ -2,6 +2,7 @@ import { trpc } from '@/app/_trpc/client'
 import { useToast } from '@/components/ui/use-toast'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
 import { useMutation } from '@tanstack/react-query'
+import { OpenAIStream, StreamingTextResponse } from 'ai'
 import { ChangeEvent, createContext, useState } from 'react'
 
 type StreamResponse = {
@@ -34,7 +35,34 @@ export const ChatContextProvider = ({
 
   const { mutate: sendMessage } = useMutation({
     mutationFn: async ({ message }: { message: string }) => {
-      const response = await fetch('/api/message', {
+      const cookies = document.cookie
+
+      const authCookies = [
+        'refresh_token',
+        'access_token',
+        'id_token',
+        'access_token_payload',
+        'id_token_payload',
+        'user',
+      ]
+
+      const cookieString = cookies
+        .split(';')
+        .map((c) => c.trim().split('='))
+        .filter(([key]) => authCookies.includes(key))
+        .map(([key, value]) => `${key}=${value}`)
+        .join('; ')
+
+      const headers = new Headers()
+      headers.append('Cookie', cookieString)
+
+      if (!process.env.NEXT_PUBLIC_CLOUDWORKER_URL) {
+        throw new Error('Missing NEXT_PUBLIC_CLOUDWORKER_URL env variable')
+      }
+
+      const cloudWorkerUrl = process.env.NEXT_PUBLIC_CLOUDWORKER_URL
+
+      const response = await fetch(cloudWorkerUrl, {
         method: 'POST',
         body: JSON.stringify({ fileId, message }),
       })
@@ -43,7 +71,10 @@ export const ChatContextProvider = ({
         throw new Error('Failed to send message')
       }
 
-      return response.body
+      const openAIStream = OpenAIStream(response)
+      const streamResponse = new StreamingTextResponse(openAIStream)
+
+      return streamResponse.body
     },
     onMutate: async ({ message }) => {
       // back up the message for restoration in case of error
