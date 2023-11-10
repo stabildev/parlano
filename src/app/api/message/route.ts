@@ -7,6 +7,7 @@ import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { PineconeStore } from 'langchain/vectorstores/pinecone'
 import { NextRequest } from 'next/server'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
+import { ChatCompletionMessageParam } from 'openai/resources/index.mjs'
 
 export const POST = async (req: NextRequest) => {
   // endpoint for asking a question to a pdf file
@@ -69,51 +70,31 @@ export const POST = async (req: NextRequest) => {
     take: 6,
   })
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo',
-    temperature: 0,
-    stream: true,
-    messages: [
-      {
-        role: 'system',
-        content:
-          'Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format.',
-      },
-      {
-        role: 'user',
-        content: `Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format. \nIf you don't know the answer, just say that you don't know, don't try to make up an answer.
-        
-  \n----------------\n
-  
-  PREVIOUS CONVERSATION:
-  ${prevMessages.map((message) =>
-    message.isUserMessage
-      ? `User: ${message.text}`
-      : `Assistant: ${message.text}`
-  )}).join('\n\n')}
-  
-  \n----------------\n
-  
-  CONTEXT:
-  ${results.map((r) => r.pageContent).join('\n\n')}
-  
-  USER INPUT: ${message}`,
-      },
-    ],
-  })
-
-  const stream = OpenAIStream(response, {
-    onCompletion: async (completion: string) => {
-      await db.message.create({
-        data: {
-          text: completion,
-          isUserMessage: false,
-          fileId,
-          userId,
-        },
-      })
+  const messages = [
+    {
+      role: 'system',
+      content:
+        'Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format.',
     },
-  })
+    {
+      role: 'user',
+      content: `Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format. \nIf you don't know the answer, just say that you don't know, don't try to make up an answer.
+      
+\n----------------\n
 
-  return new StreamingTextResponse(stream)
+PREVIOUS CONVERSATION:
+${prevMessages.map((message) =>
+  message.isUserMessage ? `User: ${message.text}` : `Assistant: ${message.text}`
+)}).join('\n\n')}
+
+\n----------------\n
+
+CONTEXT:
+${results.map((r) => r.pageContent).join('\n\n')}
+
+USER INPUT: ${message}`,
+    },
+  ]
+
+  return Response.json(messages)
 }

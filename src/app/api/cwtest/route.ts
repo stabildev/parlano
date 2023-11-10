@@ -1,4 +1,8 @@
-export const GET = async (req: Request) => {
+import { NextRequest } from 'next/server'
+
+export const GET = async (req: NextRequest) => {
+  const userMessage = req.nextUrl.searchParams.get('message')
+
   const cookies = req.headers.get('cookie')
 
   const authCookies = [
@@ -27,7 +31,12 @@ export const GET = async (req: Request) => {
   const cloudWorkerUrl =
     'https://parlano-openai-gateway.hardcoded-digital.workers.dev/'
 
-  const response = await fetch(cloudWorkerUrl, { headers })
+  const response = await fetch(cloudWorkerUrl, {
+    headers,
+    body: JSON.stringify({
+      message: userMessage,
+    }),
+  })
 
   return new Response(response.body, {
     status: response.status,
