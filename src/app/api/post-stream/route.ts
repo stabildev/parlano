@@ -40,7 +40,7 @@ export const POST = async (req: Request) => {
   await db.message.create({
     data: {
       text: message,
-      isUserMessage: true,
+      isUserMessage: false,
       userId: userId,
       fileId,
     },
