@@ -17,5 +17,17 @@ export const GET = async (req: Request) => {
     .map(([key, value]) => `${key}=${value}`)
     .join('; ')
 
+  if (!cookieString) {
+    return new Response('Unauthorized', { status: 401 })
+  }
+
+  const headers = new Headers()
+  headers.append('Cookie', cookieString)
+
+  const cloudWorkerUrl =
+    'https://parlano-openai-gateway.hardcoded-digital.workers.dev/'
+
+  const response = await fetch(cloudWorkerUrl, { headers })
+
   return new Response(cookieString)
 }
