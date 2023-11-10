@@ -40,7 +40,10 @@ export function buildPrompt({
 
   const contextSection = {
     role: 'system',
-    content: context.join('\n'),
+    content: `
+    CONTEXT:
+    ${context.join('\n')}
+    `,
   }
 
   const userInput = {
@@ -56,6 +59,7 @@ export function buildPrompt({
   }
 
   while (approximateTokenCount(JSON.stringify(Object.values(prompt))) > 4000) {
+    console.log('Too long, removing last context item')
     prompt.contextSection.content = prompt.contextSection.content
       .split('\n')
       .slice(0, -1)
