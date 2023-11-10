@@ -7,12 +7,14 @@ export const POST = async (req: Request) => {
   // Authorization: Bearer <secret>
   const headers = req.headers
   const bearer = headers.get('Authorization')
+  console.log('bearer', bearer)
 
   if (!bearer) {
     return new Response('Unauthorized', { status: 401 })
   }
 
   const secret = bearer.replace('Bearer ', '')
+  console.log('secret', secret)
 
   if (!secret || secret !== process.env.CLOUD_WORKER_SECRET) {
     return new Response('Unauthorized', { status: 401 })
@@ -21,8 +23,9 @@ export const POST = async (req: Request) => {
   // Authorize user
   const { getUser } = getKindeServerSession()
   const user = await getUser()
+  const userId = user?.id
 
-  if (!user?.id) {
+  if (!userId) {
     return new Response('Unauthorized', { status: 401 })
   }
 
@@ -40,7 +43,7 @@ export const POST = async (req: Request) => {
     data: {
       text: message,
       isUserMessage: true,
-      userId: user.id,
+      userId: userId,
       fileId,
     },
   })

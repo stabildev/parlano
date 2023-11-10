@@ -53,9 +53,6 @@ export const ChatContextProvider = ({
         .map(([key, value]) => `${key}=${value}`)
         .join('; ')
 
-      const headers = new Headers()
-      headers.append('Cookie', cookieString)
-
       if (!process.env.NEXT_PUBLIC_CLOUDWORKER_URL) {
         throw new Error('Missing NEXT_PUBLIC_CLOUDWORKER_URL env variable')
       }
@@ -64,8 +61,7 @@ export const ChatContextProvider = ({
 
       const response = await fetch(cloudWorkerUrl, {
         method: 'POST',
-        headers,
-        body: JSON.stringify({ fileId, message }),
+        body: JSON.stringify({ fileId, message, cookieString }),
       })
 
       if (!response.ok) {

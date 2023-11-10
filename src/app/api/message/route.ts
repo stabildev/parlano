@@ -7,7 +7,22 @@ import { PineconeStore } from 'langchain/vectorstores/pinecone'
 import { NextRequest } from 'next/server'
 
 export const POST = async (req: NextRequest) => {
-  // endpoint for asking a question to a pdf file
+  // check if request comes from cloud worker
+  // Authorization: Bearer <secret>
+  const headers = req.headers
+  const bearer = headers.get('Authorization')
+  console.log('bearer', bearer)
+
+  if (!bearer) {
+    return new Response('Unauthorized', { status: 401 })
+  }
+
+  const secret = bearer.replace('Bearer ', '')
+  console.log('secret', secret)
+
+  if (!secret || secret !== process.env.CLOUD_WORKER_SECRET) {
+    return new Response('Unauthorized', { status: 401 })
+  }
 
   const body = await req.json()
 
