@@ -222,7 +222,8 @@ export const ChatContextProvider = ({
       setIsLoading(false)
 
       // invalidate the query to refetch the data
-      await utils.getFileMessages.invalidate({ fileId })
+      // timeout is needed to prevent the query from being invalidated before the data is updated
+      setTimeout(() => utils.getFileMessages.invalidate({ fileId }), 1000)
     },
   })
 
