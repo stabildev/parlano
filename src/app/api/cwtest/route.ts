@@ -1,7 +1,13 @@
+import { SendMessageValidator } from '@/lib/validators/SendMessageValidator'
 import { NextRequest } from 'next/server'
 
 export const GET = async (req: NextRequest) => {
-  const userMessage = req.nextUrl.searchParams.get('message')
+  const message = req.nextUrl.searchParams.get('message')
+  const fileId = req.nextUrl.searchParams.get('fileId')
+
+  if (!message || !fileId) {
+    return new Response('Bad request', { status: 400 })
+  }
 
   const cookies = req.headers.get('cookie')
 
@@ -35,8 +41,9 @@ export const GET = async (req: NextRequest) => {
     method: 'POST',
     headers,
     body: JSON.stringify({
-      message: userMessage,
-    }),
+      message,
+      fileId,
+    } satisfies SendMessageValidator),
   })
 
   return new Response(response.body, {
