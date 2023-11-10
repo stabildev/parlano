@@ -1,7 +1,7 @@
 'use client'
 
 import { trpc } from '@/app/_trpc/client'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Progress } from '@/components/ui/progress'
 import { useToast } from '@/components/ui/use-toast'
@@ -15,7 +15,7 @@ import { HoverShine } from '@/components/HoverShine'
 import { cn } from '@/lib/utils'
 
 const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
-  const [isUploading, setIsUploading] = useState(false)
+  const [isUploading, setIsUploading] = useState(true)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [isHovering, setIsHovering] = useState(false)
 
@@ -97,7 +97,7 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
           onClick={open}
           {...getRootProps()}
           className={cn(
-            'm-4 h-64 rounded-lg border border-dashed border-zinc-300 bg-zinc-50 dark:border-2 dark:border-zinc-800 dark:bg-zinc-900/25',
+            'm-4 h-64 rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-4 dark:border-2 dark:border-zinc-800 dark:bg-zinc-900/25',
             isHovering && 'bg-zinc-100 dark:bg-zinc-900'
           )}
         >
