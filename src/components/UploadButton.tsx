@@ -10,7 +10,7 @@ import { DialogTrigger } from '@radix-ui/react-dialog'
 import { CloudIcon, FileIcon, Loader2Icon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import Dropzone from 'react-dropzone'
+import Dropzone, { useDropzone } from 'react-dropzone'
 import { HoverShine } from '@/components/HoverShine'
 import { cn } from '@/lib/utils'
 
@@ -51,11 +51,14 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
     retryDelay: 500,
   })
 
+  const { open } = useDropzone()
+
   return (
     <Dropzone
       multiple={false}
       onDragEnter={() => setIsHovering(true)}
       onDragLeave={() => setIsHovering(false)}
+      noClick={true}
       onDrop={async (acceptedFile) => {
         setIsHovering(false)
         setIsUploading(true)
@@ -91,6 +94,7 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
     >
       {({ getRootProps, getInputProps, acceptedFiles }) => (
         <div
+          onClick={open}
           {...getRootProps()}
           className={cn(
             'm-4 h-64 rounded-lg border border-dashed border-zinc-300 bg-zinc-50 dark:border-2 dark:border-zinc-800 dark:bg-zinc-900/25',
