@@ -45,7 +45,7 @@ const Dashboard = ({ isSubscribed }: { isSubscribed: boolean }) => {
   })
 
   return (
-    <main className="mx-auto max-w-7xl px-4 md:p-10">
+    <main className="mx-auto w-full max-w-7xl px-4 md:p-10">
       <div className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pb-5 dark:border-zinc-800 sm:flex-row sm:items-center sm:gap-0">
         <h1 className="mb-3 text-5xl font-bold text-zinc-900 dark:text-zinc-200">
           My Files
