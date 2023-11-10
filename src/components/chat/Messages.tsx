@@ -53,7 +53,7 @@ const Messages = ({ fileId }: { fileId: string }) => {
   }, [entry, fetchNextPage])
 
   return (
-    // max-h-[calc(100vh-3.5rem-7rem)] flex-1
+    // max-h-[calc(var(--viewport-height)-3.5rem-7rem)] flex-1
     <div className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex flex-col-reverse gap-4 overflow-y-auto border-zinc-200 p-3">
       {combinedMessages.length ? (
         combinedMessages.map((message, i) => {

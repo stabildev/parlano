@@ -33,6 +33,8 @@
     --ring: 240 10% 3.9%;
 
     --radius: 0.5rem;
+
+    --viewport-height: 100vh;
   }
 
   .dark {
@@ -63,6 +65,19 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    :root {
+      --viewport-height: -webkit-fill-available;
+    }
+
+    .h-screen {
+      height: -webkit-fill-available;
+    }
+    .max-h-screen {
+      max-height: -webkit-fill-available;
+    }
   }
 }
 
@@ -98,13 +113,4 @@
 
 .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
   border-radius: 7px;
-}
-
-@supports (-webkit-touch-callout: none) {
-  .h-screen {
-    height: -webkit-fill-available;
-  }
-  .max-h-screen {
-    max-height: -webkit-fill-available;
-  }
 }
