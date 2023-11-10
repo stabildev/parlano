@@ -32,6 +32,7 @@ export const GET = async (req: NextRequest) => {
     'https://parlano-openai-gateway.hardcoded-digital.workers.dev/'
 
   const response = await fetch(cloudWorkerUrl, {
+    method: 'POST',
     headers,
     body: JSON.stringify({
       message: userMessage,
