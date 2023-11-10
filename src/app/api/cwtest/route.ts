@@ -28,6 +28,7 @@ export const GET = async (req: Request) => {
     'https://parlano-openai-gateway.hardcoded-digital.workers.dev/'
 
   const response = await fetch(cloudWorkerUrl, { headers })
+  console.log(await response.text())
 
   return response
 }
