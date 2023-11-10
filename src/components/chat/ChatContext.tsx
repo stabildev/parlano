@@ -64,6 +64,7 @@ export const ChatContextProvider = ({
 
       const response = await fetch(cloudWorkerUrl, {
         method: 'POST',
+        headers,
         body: JSON.stringify({ fileId, message }),
       })
 
