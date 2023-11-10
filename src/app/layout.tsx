@@ -9,6 +9,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { Toaster } from '@/components/ui/toaster'
 import Navbar from '@/components/Navbar'
 import { cn, constructMetadata } from '@/lib/utils'
+import { Footer } from '@/components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 const ptSerif = PT_Serif({
@@ -39,17 +40,8 @@ export default function RootLayout({
             <Toaster />
             <Navbar />
             <div className="flex flex-col">
+              <Footer />
               <div className="mt-14 flex flex-grow flex-col">{children}</div>
-              <footer className="mx-auto flex h-6 flex-row items-center justify-center text-xs opacity-20">
-                © 2023&nbsp;
-                <a
-                  href="https://hardcoded.digital"
-                  className="underline-offset-2 hover:underline"
-                >
-                  Hardcoded Digital
-                </a>
-                . Portfolio demonstration only.
-              </footer>
             </div>
           </TrpcProvider>
         </ThemeProvider>
