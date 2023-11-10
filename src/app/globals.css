@@ -106,6 +106,6 @@
 
 @supports (-webkit-touch-callout: none) {
   .max-container-height {
-    max-height: calc(--webkit-fill-available - 3.5rem - 1.5rem);
+    max-height: calc(--webkit-fill-available - 3.5rem - 1.5rem - 10rem);
   }
 }
