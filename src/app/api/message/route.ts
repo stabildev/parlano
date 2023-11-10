@@ -11,16 +11,14 @@ export const POST = async (req: NextRequest) => {
   // Authorization: Bearer <secret>
   const headers = req.headers
   const bearer = headers.get('Authorization')
-  console.log('bearer', bearer)
 
   if (!bearer) {
     return new Response('Unauthorized', { status: 401 })
   }
 
   const secret = bearer.replace('Bearer ', '')
-  console.log('secret', secret)
 
-  if (!secret || secret !== process.env.CLOUD_WORKER_SECRET) {
+  if (!secret || secret !== process.env.PARLANO_CLOUDWORKER_SECRET) {
     return new Response('Unauthorized', { status: 401 })
   }
 
