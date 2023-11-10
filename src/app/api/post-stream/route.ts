@@ -1,26 +1,49 @@
+import { db } from '@/db'
+import { sendMessageValidator } from '@/lib/validators/SendMessageValidator'
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+
 export const POST = async (req: Request) => {
-  //   const response = await openai.chat.completions.create({
-  //     model: 'gpt-3.5-turbo',
-  //     temperature: 0,
-  //     stream: true,
-  //     messages: messages as any,
-  //   })
+  // check if request comes from cloud worker
+  // Authorization: Bearer <secret>
+  const headers = req.headers
+  const bearer = headers.get('Authorization')
 
-  //   const stream = OpenAIStream(response, {
-  //     onCompletion: async (completion: string) => {
-  //       await db.message.create({
-  //         data: {
-  //           text: completion,
-  //           isUserMessage: false,
-  //           fileId,
-  //           userId,
-  //         },
-  //       })
-  //     },
-  //   })
+  if (!bearer) {
+    return new Response('Unauthorized', { status: 401 })
+  }
 
-  //   return new StreamingTextResponse(stream)
-  // }
+  const secret = bearer.replace('Bearer ', '')
 
-  return new Response('Not found', { status: 404 })
+  if (!secret || secret !== process.env.CLOUD_WORKER_SECRET) {
+    return new Response('Unauthorized', { status: 401 })
+  }
+
+  // Authorize user
+  const { getUser } = getKindeServerSession()
+  const user = await getUser()
+
+  if (!user?.id) {
+    return new Response('Unauthorized', { status: 401 })
+  }
+
+  // get complete message and file id
+  const body = await req.json()
+
+  const { fileId, message } = sendMessageValidator.parse(body)
+
+  if (!fileId || !message) {
+    return new Response('Bad request', { status: 400 })
+  }
+
+  // create db message
+  await db.message.create({
+    data: {
+      text: message,
+      isUserMessage: true,
+      userId: user.id,
+      fileId,
+    },
+  })
+
+  return new Response('OK', { status: 200 })
 }
