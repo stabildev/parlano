@@ -24,7 +24,7 @@ const ChatWrapper = ({ fileId }: { fileId: string }) => {
 
   return (
     <ChatContextProvider fileId={fileId}>
-      <div className="flex flex-grow flex-col gap-2 divide-y divide-zinc-200 overflow-hidden bg-zinc-50 dark:divide-zinc-800 dark:bg-zinc-950">
+      <div className="flex flex-grow flex-col divide-y divide-zinc-200 overflow-hidden dark:divide-zinc-800 dark:bg-zinc-950 sm:bg-zinc-100/75">
         {isPending ? (
           <div className="flex flex-grow flex-col items-center justify-center gap-2">
             <Loader2Icon className="h-8 w-8 animate-spin text-blue-500" />

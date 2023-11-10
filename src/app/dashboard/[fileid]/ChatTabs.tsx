@@ -6,14 +6,24 @@ import ChatWrapper from '@/components/chat/ChatWrapper'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { cn } from '@/lib/utils'
 import { type File } from '@prisma/client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const ChatTabs = ({ file }: { file: File }) => {
   const [activeTab, setActiveTab] = useState<'chat' | 'pdf'>('chat')
+
+  // to avoid viewport height issues on safari mobile this component is displayed as fixed and background scroll is disabled
+
+  useEffect(() => {
+    document.body.classList.add('overflow-hidden')
+    return () => {
+      document.body.classList.remove('overflow-hidden')
+    }
+  }, [])
+
   return (
     <Tabs
       defaultValue="chat"
-      className="max-container-height fixed inset-0 top-14 flex flex-col pt-3 lg:hidden"
+      className="fixed inset-0 top-14 flex flex-col bg-background pt-3 lg:hidden"
       onValueChange={(value) => setActiveTab(value as any)}
     >
       <TabsList className="mx-3 grid w-[calc(100%-1.5rem)] grid-cols-2">

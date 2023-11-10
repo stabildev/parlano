@@ -39,9 +39,9 @@ export default function RootLayout({
           <TrpcProvider>
             <Toaster />
             <Navbar />
-            <div className="flex flex-col">
-              <Footer />
+            <div className="flex min-h-screen flex-col">
               <div className="mt-14 flex flex-grow flex-col">{children}</div>
+              <Footer />
             </div>
           </TrpcProvider>
         </ThemeProvider>

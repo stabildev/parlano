@@ -17,7 +17,7 @@
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary-foreground: 0 0% 98%;
 
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
@@ -99,13 +99,3 @@
 .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
   border-radius: 7px;
 }
-
-.max-container-height {
-  max-height: calc(--webkit-fill-available - 3.5rem - 1.5rem);
-}
-
-/* @supports (-webkit-touch-callout: none) {
-  .max-container-height {
-    max-height: calc(--webkit-fill-available - 3.5rem - 1.5rem - 10rem);
-  }
-} */

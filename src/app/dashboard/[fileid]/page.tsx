@@ -36,7 +36,7 @@ const Page = async ({ params }: PageProps) => {
   return (
     <>
       <ChatTabs file={file} />
-      <div className="max-w-8xl max-container-height mx-auto hidden w-full flex-grow flex-row justify-between overflow-hidden lg:flex xl:px-2">
+      <div className="max-w-8xl mx-auto hidden h-[calc(100vh-3.5rem-1.5rem)] w-full flex-grow flex-row justify-between overflow-hidden border-b bg-zinc-50 dark:bg-transparent lg:flex xl:px-2">
         {/* left side */}
         <div className="flex-1 p-6">
           <PdfRenderer url={file.url} />

@@ -30,9 +30,9 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
           )}
         >
           {message.isUserMessage ? (
-            <Icons.user className="h-3/4 w-3/4 fill-zinc-50 text-zinc-50" />
+            <Icons.user className="h-3/4 w-3/4 text-white" />
           ) : (
-            <Icons.logo className="h-3/4 w-3/4 fill-zinc-300" />
+            <Icons.logo className="h-3/4 w-3/4 fill-white" />
           )}
         </div>
 

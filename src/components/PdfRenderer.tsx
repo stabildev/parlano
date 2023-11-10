@@ -77,7 +77,7 @@ const PdfRenderer = ({ url, className }: PdfRendererProps) => {
   return (
     <div
       className={cn(
-        'flex w-full flex-col items-center overflow-hidden rounded-md bg-white shadow dark:border dark:border-zinc-800 dark:bg-zinc-900',
+        'flex max-h-full w-full flex-col items-center rounded-md bg-white shadow dark:border dark:border-zinc-800 dark:bg-zinc-900',
         className
       )}
     >
@@ -141,7 +141,7 @@ const PdfRenderer = ({ url, className }: PdfRendererProps) => {
               })}
             >
               <SearchIcon className="h-4 w-4" />
-              <span className="hidden">{scale * 100}%</span>
+              <span className="hidden sm:inline">{scale * 100}%</span>
               <ChevronDownIcon className="h-3 w-3 opacity-50" />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -173,7 +173,7 @@ const PdfRenderer = ({ url, className }: PdfRendererProps) => {
         </div>
       </div>
 
-      <div className="max-h-screen w-full flex-1">
+      <div className="max-h-screen w-full flex-1 overflow-hidden rounded-md">
         <SimpleBar autoHide={false} className="max-h-[calc(100vh-10rem)]">
           <div ref={ref}>
             <Document

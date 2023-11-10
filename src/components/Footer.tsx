@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="mx-auto flex h-6 flex-row items-center justify-center text-xs opacity-20">
+    <footer className="-z-10 mx-auto flex h-6 flex-row items-center justify-center text-xs opacity-20">
       © 2023&nbsp;
       <a
         href="https://hardcoded.digital"
