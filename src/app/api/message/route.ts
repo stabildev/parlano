@@ -1,5 +1,6 @@
 import { db } from '@/db'
 import { pinecone } from '@/lib/pinecone'
+import { buildPrompt } from '@/lib/prompt'
 import { sendMessageValidator } from '@/lib/validators/SendMessageValidator'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
@@ -80,31 +81,11 @@ export const POST = async (req: NextRequest) => {
     take: 6,
   })
 
-  const messages = [
-    {
-      role: 'system',
-      content:
-        'Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format.',
-    },
-    {
-      role: 'user',
-      content: `Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format. \nIf you don't know the answer, just say that you don't know, don't try to make up an answer.
-      
-\n----------------\n
-
-PREVIOUS CONVERSATION:
-${prevMessages.map((message) =>
-  message.isUserMessage ? `User: ${message.text}` : `Assistant: ${message.text}`
-)}).join('\n\n')}
-
-\n----------------\n
-
-CONTEXT:
-${results.map((r) => r.pageContent).join('\n\n')}
-
-USER INPUT: ${message}`,
-    },
-  ]
+  const messages = buildPrompt({
+    message,
+    previousMessages: prevMessages,
+    context: results.map((result) => result.pageContent),
+  })
 
   return Response.json({ messages })
 }
