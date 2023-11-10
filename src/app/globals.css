@@ -101,11 +101,11 @@
 }
 
 .max-container-height {
-  max-height: calc(100vh - 3.5rem - 1.5rem - 10rem);
+  max-height: calc(--webkit-fill-available - 3.5rem - 1.5rem);
 }
 
-@supports (-webkit-touch-callout: none) {
+/* @supports (-webkit-touch-callout: none) {
   .max-container-height {
     max-height: calc(--webkit-fill-available - 3.5rem - 1.5rem - 10rem);
   }
-}
+} */

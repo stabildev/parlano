@@ -38,7 +38,7 @@ export default function RootLayout({
           <TrpcProvider>
             <Toaster />
             <Navbar />
-            <div className="flex min-h-screen flex-col">
+            <div className="flex flex-col">
               <div className="mt-14 flex flex-grow flex-col">{children}</div>
               <footer className="mx-auto flex h-6 flex-row items-center justify-center text-xs opacity-20">
                 © 2023&nbsp;
