@@ -33,9 +33,10 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 interface PdfRendererProps {
   url: string
+  className?: string
 }
 
-const PdfRenderer = ({ url }: PdfRendererProps) => {
+const PdfRenderer = ({ url, className }: PdfRendererProps) => {
   const { toast } = useToast()
 
   const { width, ref } = useResizeDetector()
@@ -74,7 +75,12 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
   }
 
   return (
-    <div className="flex w-full flex-col items-center rounded-md bg-white shadow dark:border dark:border-zinc-800 dark:bg-zinc-900">
+    <div
+      className={cn(
+        'flex w-full flex-col items-center overflow-hidden rounded-md bg-white shadow dark:border dark:border-zinc-800 dark:bg-zinc-900',
+        className
+      )}
+    >
       <div className="border-zinc-20 flex h-14 w-full items-center justify-between border-b px-2 dark:border-zinc-800">
         <div className="flex items-center gap-1.5">
           <Button
@@ -85,11 +91,12 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               setCurrentPage((prev) => (prev > 1 ? prev - 1 : 1))
               setValue('page', String(currentPage - 1))
             }}
+            className="px-2 sm:px-4"
           >
             <ChevronUpIcon className="h-4 w-4" />
           </Button>
 
-          <div className="5 flex items-center gap-1">
+          <div className="flex items-center gap-1">
             <Input
               {...register('page')}
               className={cn(
@@ -111,6 +118,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
           <Button
             variant="ghost"
             aria-label="Next page"
+            className="px-2 sm:px-4"
             disabled={currentPage >= pageCount}
             onClick={() => {
               const newValue = setCurrentPage((prev) =>
@@ -123,17 +131,17 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
           </Button>
         </div>
 
-        <div className="space-x-2">
+        <div className="sm:space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger
               aria-label="zoom"
               className={buttonVariants({
                 variant: 'ghost',
-                className: 'gap-1.5',
+                className: 'gap-1.5 px-2 sm:px-4',
               })}
             >
               <SearchIcon className="h-4 w-4" />
-              {scale * 100}%
+              <span className="hidden">{scale * 100}%</span>
               <ChevronDownIcon className="h-3 w-3 opacity-50" />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -156,6 +164,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
             variant="ghost"
             aria-label="rotate 90 degrees"
             onClick={() => setRotation((prev) => prev + 90)}
+            className="px-2 sm:px-4"
           >
             <RotateCwIcon className="h-4 w-4" />
           </Button>

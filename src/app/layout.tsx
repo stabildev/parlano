@@ -39,8 +39,10 @@ export default function RootLayout({
             <Toaster />
             <Navbar />
             <div className="flex min-h-[calc(100vh-3.5rem)] flex-col">
-              <div className="flex-grow">{children}</div>
-              <footer className="mx-auto flex flex-row items-center p-4 text-xs opacity-20">
+              <div className="flex flex-shrink flex-grow flex-col">
+                {children}
+              </div>
+              <footer className="mx-auto flex h-6 flex-row items-center justify-center text-xs opacity-20">
                 © 2023&nbsp;
                 <a
                   href="https://hardcoded.digital"

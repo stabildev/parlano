@@ -25,7 +25,7 @@ const PdfFullScreen = ({ fileUrl }: PdfFullScreenProps) => {
       <DialogTrigger
         className={buttonVariants({
           variant: 'ghost',
-          className: 'gap-1.5',
+          className: 'gap-1.5 px-2 sm:px-4',
         })}
         aria-label="full screen"
       >

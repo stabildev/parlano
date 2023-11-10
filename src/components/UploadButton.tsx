@@ -163,8 +163,8 @@ const UploadButton = ({ isSubscribed }: { isSubscribed: boolean }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <HoverShine>
+      <HoverShine>
+        <DialogTrigger asChild>
           <Button
             className="bg-gradient-to-r from-violet-600 to-rose-600 shadow"
             variant="secondary"
@@ -172,8 +172,8 @@ const UploadButton = ({ isSubscribed }: { isSubscribed: boolean }) => {
           >
             Upload PDF
           </Button>
-        </HoverShine>
-      </DialogTrigger>
+        </DialogTrigger>
+      </HoverShine>
 
       <DialogContent className="dark:border-neutral-800">
         <UploadDropzone isSubscribed={isSubscribed} />

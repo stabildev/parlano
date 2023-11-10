@@ -22,43 +22,25 @@ const ChatWrapper = ({ fileId }: { fileId: string }) => {
     }
   )
 
-  if (isPending) {
-    return (
-      <div className="relative flex min-h-full flex-col justify-between gap-2 divide-y divide-zinc-200 bg-zinc-50 dark:divide-zinc-800 dark:bg-zinc-950">
-        <div className="mb-28 mt-6 flex flex-1 flex-col items-center justify-center">
-          <div className="flex flex-col items-center gap-2">
+  return (
+    <ChatContextProvider fileId={fileId}>
+      <div className="flex flex-grow flex-col gap-2 divide-y divide-zinc-200 overflow-hidden bg-zinc-50 dark:divide-zinc-800 dark:bg-zinc-950">
+        {isPending ? (
+          <div className="flex flex-grow flex-col items-center justify-center gap-2">
             <Loader2Icon className="h-8 w-8 animate-spin text-blue-500" />
             <h3 className="text-xl font-semibold">Loading…</h3>
             <p className="text-sm text-zinc-500">
               We&apos;re preparing your PDF.
             </p>
           </div>
-        </div>
-        <ChatInput disabled />
-      </div>
-    )
-  }
-
-  if (status === 'PROCESSING') {
-    return (
-      <div className="relative flex min-h-full flex-col justify-between gap-2 divide-y divide-zinc-200 bg-zinc-50 dark:divide-zinc-800 dark:bg-zinc-950">
-        <div className="mb-28 mt-6 flex flex-1 flex-col items-center justify-center">
-          <div className="flex flex-col items-center gap-2">
+        ) : status === 'PROCESSING' ? (
+          <div className="flex flex-grow flex-col items-center justify-center gap-2">
             <Loader2Icon className="h-8 w-8 animate-spin text-blue-500" />
             <h3 className="text-xl font-semibold">Processing PDF…</h3>
             <p className="text-sm text-zinc-500">This won&apos;t take long.</p>
           </div>
-        </div>
-        <ChatInput disabled />
-      </div>
-    )
-  }
-
-  if (status === 'FAILED') {
-    return (
-      <div className="relative flex min-h-full flex-col justify-between gap-2 divide-y divide-zinc-200 bg-zinc-50 dark:divide-zinc-800 dark:bg-zinc-950">
-        <div className="mb-28 mt-6 flex flex-1 flex-col items-center justify-center">
-          <div className="flex flex-col items-center gap-2">
+        ) : status === 'FAILED' ? (
+          <div className="flex flex-grow flex-col items-center justify-center gap-2">
             <XCircleIcon className="h-8 w-8 text-red-500" />
             <h3 className="text-xl font-semibold">Too many pages in PDF</h3>
             <p className="text-sm text-zinc-500">
@@ -75,19 +57,16 @@ const ChatWrapper = ({ fileId }: { fileId: string }) => {
               <ChevronLeft className="mr-1.5 h-3 w-3" />
             </Link>
           </div>
-        </div>
-        <ChatInput disabled />
-      </div>
-    )
-  }
-
-  return (
-    <ChatContextProvider fileId={fileId}>
-      <div className="relative flex min-h-full flex-col justify-between gap-2 divide-y divide-zinc-200 bg-zinc-50 dark:divide-zinc-800 dark:bg-zinc-950">
-        <div className="mb-28 flex flex-1 flex-col justify-between">
+        ) : (
           <Messages fileId={fileId} />
+        )}
+        <div className="relative">
+          <ChatInput
+            disabled={
+              isPending || status === 'PROCESSING' || status === 'FAILED'
+            }
+          />
         </div>
-        <ChatInput />
       </div>
     </ChatContextProvider>
   )
