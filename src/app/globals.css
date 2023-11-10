@@ -100,19 +100,12 @@
   border-radius: 7px;
 }
 
-:root {
-  --viewport-height: 100vh;
+.max-container-height {
+  max-height: calc(100vh - 3.5rem - 1.5rem);
 }
 
 @supports (-webkit-touch-callout: none) {
-  :root {
-    --viewport-height: -webkit-fill-available;
-  }
-
-  .h-screen {
-    height: -webkit-fill-available;
-  }
-  .max-h-screen {
-    max-height: -webkit-fill-available;
+  .max-container-height {
+    max-height: calc(--webkit-fill-available - 3.5rem - 1.5rem);
   }
 }

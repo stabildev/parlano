@@ -32,10 +32,7 @@ const PdfFullScreen = ({ fileUrl }: PdfFullScreenProps) => {
         <ExpandIcon className="h-4 w-4" />
       </DialogTrigger>
       <DialogContent className="w-full max-w-7xl dark:border-zinc-800">
-        <SimpleBar
-          autoHide={false}
-          className="mt-6 max-h-[calc(var(--viewport-height)-10rem)]"
-        >
+        <SimpleBar autoHide={false} className="mt-6 max-h-[calc(100vh-10rem)]">
           <div ref={ref}>
             <Document
               file={fileUrl}

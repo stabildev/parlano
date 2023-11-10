@@ -12,7 +12,7 @@ export const ChatTabs = ({ file }: { file: File }) => {
   return (
     <Tabs
       defaultValue="chat"
-      className="flex max-h-[calc(var(--viewport-height)-3.5rem-1.5rem)] flex-grow flex-col pt-3 lg:hidden"
+      className="max-container-height flex flex-grow flex-col pt-3 lg:hidden"
       onValueChange={(value) => setActiveTab(value as any)}
     >
       <TabsList className="mx-3 grid w-[calc(100%-1.5rem)] grid-cols-2">
