@@ -29,5 +29,5 @@ export const GET = async (req: Request) => {
 
   const response = await fetch(cloudWorkerUrl, { headers })
 
-  return new Response(cookieString)
+  return response
 }
