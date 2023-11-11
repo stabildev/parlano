@@ -15,7 +15,7 @@ import { HoverShine } from '@/components/HoverShine'
 import { cn } from '@/lib/utils'
 
 const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
-  const [isUploading, setIsUploading] = useState(true)
+  const [isUploading, setIsUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [isHovering, setIsHovering] = useState(false)
 
