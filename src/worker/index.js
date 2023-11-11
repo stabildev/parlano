@@ -57,7 +57,7 @@ export default {
       }
 
       // Request prompt from backend
-      const response = await fetch(`${env.NEXT_PUBLIC_URL}/message`, {
+      const response = await fetch(`${env.NEXT_PUBLIC_URL}/api/message`, {
         method: 'POST',
         headers,
         body: JSON.stringify({
@@ -107,7 +107,7 @@ export default {
             const { value, done } = await reader.read()
             if (done) {
               // After stream ends, send complete message to backend to save in db
-              await fetch(`${env.NEXT_PUBLIC_URL}/post-stream`, {
+              await fetch(`${env.NEXT_PUBLIC_URL}/api/post-stream`, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({ message: completeMessage, fileId }),
