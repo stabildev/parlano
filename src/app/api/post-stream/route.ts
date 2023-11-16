@@ -1,8 +1,9 @@
 import { db } from '@/db'
 import { receiveMessageValidator } from '@/lib/validators/ReceiveMessageValidator'
-import { auth } from '@clerk/nextjs'
+import { clerkClient } from '@clerk/nextjs'
+import { NextRequest } from 'next/server'
 
-export const POST = async (req: Request) => {
+export const POST = async (req: NextRequest) => {
   // check if request comes from cloud worker
   // Authorization: Bearer <secret>
   const headers = req.headers
@@ -18,8 +19,19 @@ export const POST = async (req: Request) => {
     return new Response('Unauthorized', { status: 401 })
   }
 
-  // Authorize user
-  const { userId } = auth()
+  // Authenticate user
+  const sessionId = req.cookies.get('session_id')?.value
+  const token = req.cookies.get('token')?.value
+  console.log('sessionId', sessionId)
+  console.log('token', token)
+
+  if (!sessionId || !token) {
+    return new Response('Unauthorized', { status: 401 })
+  }
+
+  const session = await clerkClient.sessions.verifySession(sessionId, token)
+  const userId = session?.userId
+  console.log('userId', userId)
 
   if (!userId) {
     return new Response('Unauthorized', { status: 401 })

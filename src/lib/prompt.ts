@@ -58,13 +58,15 @@ export function buildPrompt({
     userInput,
   }
 
+  let counter = 0
   while (approximateTokenCount(JSON.stringify(Object.values(prompt))) > 4000) {
-    console.log('Too long, removing last context item')
+    counter++
     prompt.contextSection.content = prompt.contextSection.content
       .split('\n')
       .slice(0, -1)
       .join('\n')
   }
+  console.log(`Too long, removed ${counter} context items`)
 
   return Object.values(prompt)
 }

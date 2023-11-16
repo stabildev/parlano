@@ -37,6 +37,8 @@ export const POST = async (req: NextRequest) => {
 
   const userId = session?.userId
 
+  console.log('userId', userId)
+
   if (!userId) {
     return new Response('Unauthorized', { status: 401 })
   }
