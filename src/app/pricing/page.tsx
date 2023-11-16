@@ -183,7 +183,7 @@ const Page = async () => {
                       href={userId ? '/dashboard' : '/sign-in'}
                       className={buttonVariants({
                         className: 'w-full ',
-                        variant: 'secondary',
+                        variant: 'outline',
                       })}
                     >
                       {userId ? 'Upgrade now' : 'Sign up'}

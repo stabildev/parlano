@@ -1,22 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  redirects: async () => [
-    {
-      source: '/sign-in',
-      destination: '/api/auth/login', //todo
-      permanent: true,
-    },
-    {
-      source: '/sign-out',
-      destination: '/api/auth/logout', //todo
-      permanent: true,
-    },
-    {
-      source: '/sign-up',
-      destination: '/api/auth/register', //todo
-      permanent: true,
-    },
-  ],
   images: {
     remotePatterns: [
       {
@@ -25,7 +8,7 @@ const nextConfig = {
       },
     ],
   },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config) => {
     config.resolve.alias.canvas = false
     config.resolve.alias.encoding = false
 
