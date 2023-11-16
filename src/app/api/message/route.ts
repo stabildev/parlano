@@ -23,9 +23,11 @@ export const POST = async (req: NextRequest) => {
     return new Response('Unauthorized', { status: 401 })
   }
 
+  const body = await req.json()
+
   // Authenticate user
-  const sessionId = req.cookies.get('session_id')?.value
-  const token = req.cookies.get('token')?.value
+  const { sessionId, token } = body
+
   console.log('sessionId', sessionId)
   console.log('token', token)
 
@@ -40,8 +42,6 @@ export const POST = async (req: NextRequest) => {
   if (!userId) {
     return new Response('Unauthorized', { status: 401 })
   }
-
-  const body = await req.json()
 
   const { fileId, message } = sendMessageValidator.parse(body)
 
