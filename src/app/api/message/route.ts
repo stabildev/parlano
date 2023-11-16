@@ -23,9 +23,9 @@ export const POST = async (req: NextRequest) => {
     return new Response('Unauthorized', { status: 401 })
   }
 
+  // Authenticate user
   const sessionId = req.cookies.get('session_id')?.value
   const token = req.cookies.get('token')?.value
-
   console.log('sessionId', sessionId)
   console.log('token', token)
 
@@ -34,9 +34,7 @@ export const POST = async (req: NextRequest) => {
   }
 
   const session = await clerkClient.sessions.verifySession(sessionId, token)
-
   const userId = session?.userId
-
   console.log('userId', userId)
 
   if (!userId) {

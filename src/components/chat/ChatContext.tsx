@@ -38,7 +38,6 @@ export const ChatContextProvider = ({
   const { mutate: sendMessage } = useMutation({
     mutationFn: async ({ message }: { message: string }) => {
       const cookieString = `session_id=${sessionId}; token=${await getToken()}`
-      console.log(cookieString)
 
       if (!process.env.NEXT_PUBLIC_CLOUDWORKER_URL) {
         throw new Error('Missing NEXT_PUBLIC_CLOUDWORKER_URL env variable')
