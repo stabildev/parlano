@@ -5,7 +5,7 @@ import { sendMessageValidator } from '@/lib/validators/SendMessageValidator'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { PineconeStore } from 'langchain/vectorstores/pinecone'
 import { NextRequest } from 'next/server'
-import { currentUser } from '@clerk/nextjs'
+import { clerkClient } from '@clerk/nextjs'
 
 export const POST = async (req: NextRequest) => {
   // check if request comes from cloud worker
@@ -23,24 +23,32 @@ export const POST = async (req: NextRequest) => {
     return new Response('Unauthorized', { status: 401 })
   }
 
-  const cookies = req.headers.get('Cookie')
+  const sessionId = req.cookies.get('sessionId')?.value
+  const token = req.cookies.get('token')?.value
 
-  console.log('cookies', cookies)
+  console.log('sessionId', sessionId)
+  console.log('token', token)
 
-  const body = await req.json()
-
-  const user = await currentUser()
-
-  if (!user?.id) {
+  if (!sessionId || !token) {
     return new Response('Unauthorized', { status: 401 })
   }
+
+  const session = await clerkClient.sessions.verifySession(sessionId, token)
+
+  const userId = session?.userId
+
+  if (!userId) {
+    return new Response('Unauthorized', { status: 401 })
+  }
+
+  const body = await req.json()
 
   const { fileId, message } = sendMessageValidator.parse(body)
 
   const file = await db.file.findFirst({
     where: {
       id: fileId,
-      userId: user.id,
+      userId,
     },
   })
 
@@ -52,7 +60,7 @@ export const POST = async (req: NextRequest) => {
     data: {
       text: message,
       isUserMessage: true,
-      userId: user.id,
+      userId,
       fileId,
     },
   })

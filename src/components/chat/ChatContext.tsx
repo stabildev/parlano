@@ -1,6 +1,7 @@
 import { trpc } from '@/app/_trpc/client'
 import { useToast } from '@/components/ui/use-toast'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
+import { auth, useAuth } from '@clerk/nextjs'
 import { useMutation } from '@tanstack/react-query'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import { ChangeEvent, createContext, useState } from 'react'
@@ -32,19 +33,12 @@ export const ChatContextProvider = ({
   const { toast } = useToast()
 
   const utils = trpc.useUtils()
+  const { sessionId, getToken } = useAuth()
 
   const { mutate: sendMessage } = useMutation({
     mutationFn: async ({ message }: { message: string }) => {
-      const cookies = document.cookie
-
-      const authCookies = ['__session', '__clerk_db_jwt', '__client_uat']
-
-      const cookieString = cookies
-        .split(';')
-        .map((c) => c.trim().split('='))
-        .filter(([key]) => authCookies.includes(key))
-        .map(([key, value]) => `${key}=${value}`)
-        .join('; ')
+      const cookieString = `session_id=${sessionId}; token=${await getToken()}`
+      console.log(cookieString)
 
       if (!process.env.NEXT_PUBLIC_CLOUDWORKER_URL) {
         throw new Error('Missing NEXT_PUBLIC_CLOUDWORKER_URL env variable')
