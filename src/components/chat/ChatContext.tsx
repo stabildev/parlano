@@ -45,7 +45,12 @@ export const ChatContextProvider = ({
 
       const response = await fetch(cloudWorkerUrl, {
         method: 'POST',
-        body: JSON.stringify({ fileId, message, sessionId, token: getToken() }),
+        body: JSON.stringify({
+          fileId,
+          message,
+          sessionId,
+          token: await getToken(),
+        }),
       })
 
       if (!response.ok) {
