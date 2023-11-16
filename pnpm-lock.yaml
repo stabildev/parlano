@@ -4,177 +4,184 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  '@clerk/nextjs':
-    specifier: ^4.27.1
-    version: 4.27.1(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
-  '@hookform/resolvers':
-    specifier: ^3.3.2
-    version: 3.3.2(react-hook-form@7.48.2)
-  '@mantine/hooks':
-    specifier: ^7.2.2
-    version: 7.2.2(react@18.2.0)
-  '@pinecone-database/pinecone':
-    specifier: ^1.1.2
-    version: 1.1.2
-  '@prisma/client':
-    specifier: 5.6.0
-    version: 5.6.0(prisma@5.6.0)
-  '@radix-ui/react-avatar':
-    specifier: ^1.0.4
-    version: 1.0.4(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
-  '@radix-ui/react-dialog':
-    specifier: ^1.0.5
-    version: 1.0.5(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
-  '@radix-ui/react-dropdown-menu':
-    specifier: ^2.0.6
-    version: 2.0.6(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
-  '@radix-ui/react-progress':
-    specifier: ^1.0.3
-    version: 1.0.3(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
-  '@radix-ui/react-slot':
-    specifier: ^1.0.2
-    version: 1.0.2(@types/react@18.2.37)(react@18.2.0)
-  '@radix-ui/react-tabs':
-    specifier: ^1.0.4
-    version: 1.0.4(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
-  '@radix-ui/react-toast':
-    specifier: ^1.1.5
-    version: 1.1.5(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
-  '@radix-ui/react-tooltip':
-    specifier: ^1.0.7
-    version: 1.0.7(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
-  '@tailwindcss/typography':
-    specifier: ^0.5.10
-    version: 0.5.10(tailwindcss@3.3.5)
-  '@tanstack/react-query':
-    specifier: ^5.8.4
-    version: 5.8.4(react-dom@18.2.0)(react@18.2.0)
-  '@trpc/client':
-    specifier: 11.0.0-alpha-next-2023-11-11-17-32-01.100
-    version: 11.0.0-alpha-next-2023-11-11-17-32-01.100(@trpc/server@11.0.0-alpha-next-2023-11-11-17-32-01.100)
-  '@trpc/react-query':
-    specifier: 11.0.0-alpha-next-2023-11-11-17-32-01.100
-    version: 11.0.0-alpha-next-2023-11-11-17-32-01.100(@tanstack/react-query@5.8.4)(@trpc/client@11.0.0-alpha-next-2023-11-11-17-32-01.100)(@trpc/server@11.0.0-alpha-next-2023-11-11-17-32-01.100)(react-dom@18.2.0)(react@18.2.0)
-  '@trpc/server':
-    specifier: 11.0.0-alpha-next-2023-11-11-17-32-01.100
-    version: 11.0.0-alpha-next-2023-11-11-17-32-01.100
-  '@uploadthing/react':
-    specifier: ^6.0.0
-    version: 6.0.0(next@14.0.2)(react@18.2.0)(uploadthing@6.0.1)
-  ai:
-    specifier: ^2.2.23
-    version: 2.2.23(react@18.2.0)(solid-js@1.8.5)(svelte@4.2.3)(vue@3.3.8)
-  class-variance-authority:
-    specifier: ^0.7.0
-    version: 0.7.0
-  clsx:
-    specifier: ^2.0.0
-    version: 2.0.0
-  cookie:
-    specifier: ^0.6.0
-    version: 0.6.0
-  date-fns:
-    specifier: ^2.30.0
-    version: 2.30.0
-  langchain:
-    specifier: ^0.0.189
-    version: 0.0.189(@pinecone-database/pinecone@1.1.2)(pdf-parse@1.1.1)
-  lucide-react:
-    specifier: ^0.292.0
-    version: 0.292.0(react@18.2.0)
-  next:
-    specifier: 14.0.2
-    version: 14.0.2(react-dom@18.2.0)(react@18.2.0)
-  next-themes:
-    specifier: ^0.2.1
-    version: 0.2.1(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
-  openai:
-    specifier: ^4.19.0
-    version: 4.19.0
-  pdf-parse:
-    specifier: ^1.1.1
-    version: 1.1.1
-  react:
-    specifier: ^18.2.0
-    version: 18.2.0
-  react-dom:
-    specifier: ^18.2.0
-    version: 18.2.0(react@18.2.0)
-  react-dropzone:
-    specifier: ^14.2.3
-    version: 14.2.3(react@18.2.0)
-  react-hook-form:
-    specifier: ^7.48.2
-    version: 7.48.2(react@18.2.0)
-  react-markdown:
-    specifier: ^9.0.1
-    version: 9.0.1(@types/react@18.2.37)(react@18.2.0)
-  react-pdf:
-    specifier: ^7.5.1
-    version: 7.5.1(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
-  react-resize-detector:
-    specifier: ^9.1.0
-    version: 9.1.0(react-dom@18.2.0)(react@18.2.0)
-  react-textarea-autosize:
-    specifier: ^8.5.3
-    version: 8.5.3(@types/react@18.2.37)(react@18.2.0)
-  server-only:
-    specifier: ^0.0.1
-    version: 0.0.1
-  simplebar-react:
-    specifier: ^3.2.4
-    version: 3.2.4(react@18.2.0)
-  stripe:
-    specifier: ^14.4.0
-    version: 14.4.0
-  tailwind-merge:
-    specifier: ^2.0.0
-    version: 2.0.0
-  tailwindcss-animate:
-    specifier: ^1.0.7
-    version: 1.0.7(tailwindcss@3.3.5)
-  uploadthing:
-    specifier: ^6.0.1
-    version: 6.0.1
-  zod:
-    specifier: ^3.22.4
-    version: 3.22.4
+importers:
 
-devDependencies:
-  '@types/node':
-    specifier: ^20.9.0
-    version: 20.9.0
-  '@types/react':
-    specifier: ^18.2.37
-    version: 18.2.37
-  '@types/react-dom':
-    specifier: ^18.2.15
-    version: 18.2.15
-  autoprefixer:
-    specifier: ^10.4.16
-    version: 10.4.16(postcss@8.4.31)
-  eslint:
-    specifier: ^8.53.0
-    version: 8.53.0
-  eslint-config-next:
-    specifier: 14.0.2
-    version: 14.0.2(eslint@8.53.0)(typescript@5.2.2)
-  postcss:
-    specifier: ^8.4.31
-    version: 8.4.31
-  prettier-plugin-tailwindcss:
-    specifier: ^0.5.7
-    version: 0.5.7(prettier@3.1.0)
-  prisma:
-    specifier: 5.6.0
-    version: 5.6.0
-  tailwindcss:
-    specifier: ^3.3.5
-    version: 3.3.5
-  typescript:
-    specifier: ^5.2.2
-    version: 5.2.2
+  .: {}
+
+  apps/web:
+    dependencies:
+      '@clerk/nextjs':
+        specifier: ^4.27.1
+        version: 4.27.1(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
+      '@hookform/resolvers':
+        specifier: ^3.3.2
+        version: 3.3.2(react-hook-form@7.48.2)
+      '@mantine/hooks':
+        specifier: ^7.2.2
+        version: 7.2.2(react@18.2.0)
+      '@pinecone-database/pinecone':
+        specifier: ^1.1.2
+        version: 1.1.2
+      '@prisma/client':
+        specifier: 5.6.0
+        version: 5.6.0(prisma@5.6.0)
+      '@radix-ui/react-avatar':
+        specifier: ^1.0.4
+        version: 1.0.4(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-dialog':
+        specifier: ^1.0.5
+        version: 1.0.5(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-dropdown-menu':
+        specifier: ^2.0.6
+        version: 2.0.6(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-progress':
+        specifier: ^1.0.3
+        version: 1.0.3(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-slot':
+        specifier: ^1.0.2
+        version: 1.0.2(@types/react@18.2.37)(react@18.2.0)
+      '@radix-ui/react-tabs':
+        specifier: ^1.0.4
+        version: 1.0.4(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-toast':
+        specifier: ^1.1.5
+        version: 1.1.5(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-tooltip':
+        specifier: ^1.0.7
+        version: 1.0.7(@types/react-dom@18.2.15)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+      '@tailwindcss/typography':
+        specifier: ^0.5.10
+        version: 0.5.10(tailwindcss@3.3.5)
+      '@tanstack/react-query':
+        specifier: ^5.8.4
+        version: 5.8.4(react-dom@18.2.0)(react@18.2.0)
+      '@trpc/client':
+        specifier: 11.0.0-alpha-next-2023-11-11-17-32-01.100
+        version: 11.0.0-alpha-next-2023-11-11-17-32-01.100(@trpc/server@11.0.0-alpha-next-2023-11-11-17-32-01.100)
+      '@trpc/react-query':
+        specifier: 11.0.0-alpha-next-2023-11-11-17-32-01.100
+        version: 11.0.0-alpha-next-2023-11-11-17-32-01.100(@tanstack/react-query@5.8.4)(@trpc/client@11.0.0-alpha-next-2023-11-11-17-32-01.100)(@trpc/server@11.0.0-alpha-next-2023-11-11-17-32-01.100)(react-dom@18.2.0)(react@18.2.0)
+      '@trpc/server':
+        specifier: 11.0.0-alpha-next-2023-11-11-17-32-01.100
+        version: 11.0.0-alpha-next-2023-11-11-17-32-01.100
+      '@uploadthing/react':
+        specifier: ^6.0.0
+        version: 6.0.0(next@14.0.2)(react@18.2.0)(uploadthing@6.0.1)
+      ai:
+        specifier: ^2.2.23
+        version: 2.2.24(react@18.2.0)(solid-js@1.8.5)(svelte@4.2.3)(vue@3.3.8)
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
+      clsx:
+        specifier: ^2.0.0
+        version: 2.0.0
+      cookie:
+        specifier: ^0.6.0
+        version: 0.6.0
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
+      langchain:
+        specifier: ^0.0.189
+        version: 0.0.189(@pinecone-database/pinecone@1.1.2)(pdf-parse@1.1.1)
+      lucide-react:
+        specifier: ^0.292.0
+        version: 0.292.0(react@18.2.0)
+      next:
+        specifier: 14.0.2
+        version: 14.0.2(react-dom@18.2.0)(react@18.2.0)
+      next-themes:
+        specifier: ^0.2.1
+        version: 0.2.1(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
+      openai:
+        specifier: ^4.19.0
+        version: 4.19.0
+      pdf-parse:
+        specifier: ^1.1.1
+        version: 1.1.1
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-dropzone:
+        specifier: ^14.2.3
+        version: 14.2.3(react@18.2.0)
+      react-hook-form:
+        specifier: ^7.48.2
+        version: 7.48.2(react@18.2.0)
+      react-markdown:
+        specifier: ^9.0.1
+        version: 9.0.1(@types/react@18.2.37)(react@18.2.0)
+      react-pdf:
+        specifier: ^7.5.1
+        version: 7.5.1(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+      react-resize-detector:
+        specifier: ^9.1.0
+        version: 9.1.0(react-dom@18.2.0)(react@18.2.0)
+      react-textarea-autosize:
+        specifier: ^8.5.3
+        version: 8.5.3(@types/react@18.2.37)(react@18.2.0)
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
+      simplebar-react:
+        specifier: ^3.2.4
+        version: 3.2.4(react@18.2.0)
+      stripe:
+        specifier: ^14.4.0
+        version: 14.4.0
+      tailwind-merge:
+        specifier: ^2.0.0
+        version: 2.0.0
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.3.5)
+      uploadthing:
+        specifier: ^6.0.1
+        version: 6.0.1
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+    devDependencies:
+      '@types/node':
+        specifier: ^20.9.0
+        version: 20.9.0
+      '@types/react':
+        specifier: ^18.2.37
+        version: 18.2.37
+      '@types/react-dom':
+        specifier: ^18.2.15
+        version: 18.2.15
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.16(postcss@8.4.31)
+      eslint:
+        specifier: ^8.53.0
+        version: 8.53.0
+      eslint-config-next:
+        specifier: 14.0.2
+        version: 14.0.2(eslint@8.53.0)(typescript@5.2.2)
+      postcss:
+        specifier: ^8.4.31
+        version: 8.4.31
+      prettier:
+        specifier: ^3.1.0
+        version: 3.1.0
+      prettier-plugin-tailwindcss:
+        specifier: ^0.5.7
+        version: 0.5.7(prettier@3.1.0)
+      prisma:
+        specifier: 5.6.0
+        version: 5.6.0
+      tailwindcss:
+        specifier: ^3.3.5
+        version: 3.3.5
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
 
 packages:
 
@@ -366,7 +373,7 @@ packages:
       debug: 4.3.4
       espree: 9.6.1
       globals: 13.23.0
-      ignore: 5.2.4
+      ignore: 5.3.0
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       minimatch: 3.1.2
@@ -1802,8 +1809,8 @@ packages:
       humanize-ms: 1.2.1
     dev: false
 
-  /ai@2.2.23(react@18.2.0)(solid-js@1.8.5)(svelte@4.2.3)(vue@3.3.8):
-    resolution: {integrity: sha512-pToIoSX7mXy7t8+D8xN6OjlEvtufbY5fPDzoSzf3zR/Z2ajw1rE6d9hOFyKSZ+ZTNdZ1xklabWf21qj2gP1REA==}
+  /ai@2.2.24(react@18.2.0)(solid-js@1.8.5)(svelte@4.2.3)(vue@3.3.8):
+    resolution: {integrity: sha512-j9f89SC08SxN50wKp4ccIGniUMtCsslvOBbYGBCSIvDbMBQaNTZuKW4Id8tmfEeNMV9mwZZ5wRNj6/1Z/pFwYA==}
     engines: {node: '>=14.6'}
     peerDependencies:
       react: ^18.2.0
@@ -2088,7 +2095,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001562
-      electron-to-chromium: 1.4.585
+      electron-to-chromium: 1.4.586
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
     dev: true
@@ -2467,8 +2474,8 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /electron-to-chromium@1.4.585:
-    resolution: {integrity: sha512-B4yBlX0azdA3rVMxpYwLQfDpdwOgcnLCkpvSOd68iFmeedo+WYjaBJS3/W58LVD8CB2nf+o7C4K9xz1l09RkWg==}
+  /electron-to-chromium@1.4.586:
+    resolution: {integrity: sha512-qMa+E6yf1fNQbg3G66pHLXeJUP5CCCzNat1VPczOZOqgI2w4u+8y9sQnswMdGs5m4C1rOePq37EVBr/nsPQY7w==}
     dev: true
 
   /emoji-regex@8.0.0:
@@ -2818,7 +2825,7 @@ packages:
       glob-parent: 6.0.2
       globals: 13.23.0
       graphemer: 1.4.0
-      ignore: 5.2.4
+      ignore: 5.3.0
       imurmurhash: 0.1.4
       is-glob: 4.0.3
       is-path-inside: 3.0.3
@@ -3160,7 +3167,7 @@ packages:
       array-union: 2.1.0
       dir-glob: 3.0.1
       fast-glob: 3.3.2
-      ignore: 5.2.4
+      ignore: 5.3.0
       merge2: 1.4.1
       slash: 3.0.0
     dev: true
@@ -3267,8 +3274,8 @@ packages:
       safer-buffer: 2.1.2
     dev: false
 
-  /ignore@5.2.4:
-    resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
+  /ignore@5.3.0:
+    resolution: {integrity: sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==}
     engines: {node: '>= 4'}
     dev: true
 
@@ -4479,7 +4486,6 @@ packages:
   /node-fetch@2.7.0(encoding@0.1.13):
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
     engines: {node: 4.x || >=6.0.0}
-    requiresBuild: true
     peerDependencies:
       encoding: ^0.1.0
     peerDependenciesMeta:
@@ -5733,7 +5739,6 @@ packages:
 
   /tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
-    requiresBuild: true
     dev: false
 
   /trim-lines@3.0.1:
@@ -6063,12 +6068,10 @@ packages:
 
   /webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
-    requiresBuild: true
     dev: false
 
   /whatwg-url@5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
-    requiresBuild: true
     dependencies:
       tr46: 0.0.3
       webidl-conversions: 3.0.1

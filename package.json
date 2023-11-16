@@ -1,75 +1,25 @@
 {
   "name": "parlano",
-  "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "postinstall": "prisma generate"
+    "test": "turbo run test",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint"
   },
-  "dependencies": {
-    "@clerk/nextjs": "^4.27.1",
-    "@hookform/resolvers": "^3.3.2",
-    "@mantine/hooks": "^7.2.2",
-    "@pinecone-database/pinecone": "^1.1.2",
-    "@prisma/client": "5.6.0",
-    "@radix-ui/react-avatar": "^1.0.4",
-    "@radix-ui/react-dialog": "^1.0.5",
-    "@radix-ui/react-dropdown-menu": "^2.0.6",
-    "@radix-ui/react-progress": "^1.0.3",
-    "@radix-ui/react-slot": "^1.0.2",
-    "@radix-ui/react-tabs": "^1.0.4",
-    "@radix-ui/react-toast": "^1.1.5",
-    "@radix-ui/react-tooltip": "^1.0.7",
-    "@tailwindcss/typography": "^0.5.10",
-    "@tanstack/react-query": "^5.8.4",
-    "@trpc/client": "11.0.0-alpha-next-2023-11-11-17-32-01.100",
-    "@trpc/react-query": "11.0.0-alpha-next-2023-11-11-17-32-01.100",
-    "@trpc/server": "11.0.0-alpha-next-2023-11-11-17-32-01.100",
-    "@uploadthing/react": "^6.0.0",
-    "ai": "^2.2.23",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
-    "cookie": "^0.6.0",
-    "date-fns": "^2.30.0",
-    "langchain": "^0.0.189",
-    "lucide-react": "^0.292.0",
-    "next": "14.0.2",
-    "next-themes": "^0.2.1",
-    "openai": "^4.19.0",
-    "pdf-parse": "^1.1.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-dropzone": "^14.2.3",
-    "react-hook-form": "^7.48.2",
-    "react-markdown": "^9.0.1",
-    "react-pdf": "^7.5.1",
-    "react-resize-detector": "^9.1.0",
-    "react-textarea-autosize": "^8.5.3",
-    "server-only": "^0.0.1",
-    "simplebar-react": "^3.2.4",
-    "stripe": "^14.4.0",
-    "tailwind-merge": "^2.0.0",
-    "tailwindcss-animate": "^1.0.7",
-    "uploadthing": "^6.0.1",
-    "zod": "^3.22.4"
-  },
-  "devDependencies": {
-    "@types/node": "^20.9.0",
-    "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.15",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.53.0",
-    "eslint-config-next": "14.0.2",
-    "postcss": "^8.4.31",
-    "prettier-plugin-tailwindcss": "^0.5.7",
-    "prisma": "5.6.0",
-    "tailwindcss": "^3.3.5",
-    "typescript": "^5.2.2"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "overrides": {
-    "@uploadthing/react": "next^14.0.1"
+    "@uploadthing/react": {
+      "next": "^14.0.2"
+    }
   }
 }
