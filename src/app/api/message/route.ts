@@ -23,7 +23,7 @@ export const POST = async (req: NextRequest) => {
     return new Response('Unauthorized', { status: 401 })
   }
 
-  const sessionId = req.cookies.get('sessionId')?.value
+  const sessionId = req.cookies.get('session_id')?.value
   const token = req.cookies.get('token')?.value
 
   console.log('sessionId', sessionId)
