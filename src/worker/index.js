@@ -40,9 +40,9 @@ export default {
     // 1) Extract session and request body
     try {
       const body = await request.json()
-      const { message, fileId, cookieString: cookies } = body
+      const { message, fileId, sessionId, token } = body
 
-      if (!cookies) {
+      if (!sessionId || !token) {
         return new Response('Unauthorized', { status: 401 })
       }
 
@@ -51,7 +51,6 @@ export default {
       }
 
       const headers = {
-        Cookie: cookies,
         Authorization: `Bearer ${env.PARLANO_CLOUDWORKER_SECRET}`,
         'Content-Type': 'application/json',
       }
@@ -63,6 +62,8 @@ export default {
         body: JSON.stringify({
           message,
           fileId,
+          sessionId,
+          token,
         }),
       })
 
@@ -110,7 +111,12 @@ export default {
               await fetch(`${env.NEXT_PUBLIC_URL}/api/post-stream`, {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({ message: completeMessage, fileId }),
+                body: JSON.stringify({
+                  message: completeMessage,
+                  fileId,
+                  sessionId,
+                  token,
+                }),
               })
               break
             }

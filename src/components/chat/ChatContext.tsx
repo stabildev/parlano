@@ -1,7 +1,7 @@
 import { trpc } from '@/app/_trpc/client'
 import { useToast } from '@/components/ui/use-toast'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
-import { auth, useAuth } from '@clerk/nextjs'
+import { useAuth } from '@clerk/nextjs'
 import { useMutation } from '@tanstack/react-query'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import { ChangeEvent, createContext, useState } from 'react'

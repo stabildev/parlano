@@ -1,5 +1,6 @@
+import 'server-only'
 import { PLANS } from '@/config/stripe'
-import { auth } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs'
 import Stripe from 'stripe'
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
@@ -8,9 +9,9 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
 })
 
 export async function getUserSubscriptionPlan() {
-  const { userId, user } = auth()
+  const user = await currentUser()
 
-  if (!userId || !user?.privateMetadata) {
+  if (!user?.id || !user.privateMetadata) {
     return {
       ...PLANS[0],
       isSubscribed: false,

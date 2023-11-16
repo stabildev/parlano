@@ -5,7 +5,7 @@ import { ArrowRightIcon } from 'lucide-react'
 import UserAccountNav from '@/components/UserAccountNav'
 import MobileNav from '@/components/MobileNav'
 import { HoverShine } from '@/components/HoverShine'
-import { SignInButton, SignUpButton, auth, currentUser } from '@clerk/nextjs'
+import { SignInButton, SignUpButton, currentUser } from '@clerk/nextjs'
 
 const Navbar = async () => {
   const user = await currentUser()
@@ -16,7 +16,7 @@ const Navbar = async () => {
         <div className="flex h-14 items-center justify-between">
           <Link
             href="/"
-            className="z-40 flex px-2 font-display text-3xl font-semibold"
+            className="z-40 flex px-2 font-display text-3xl font-semibold tracking-tight"
           >
             parlano.
           </Link>

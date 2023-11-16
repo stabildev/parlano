@@ -9,11 +9,9 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
 import { SignOutButton } from '@clerk/nextjs'
-import { User2Icon, UserIcon } from 'lucide-react'
+import { User2Icon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-
-// todo: add logout link
 
 const UserAccountNav = async ({
   email,
@@ -77,9 +75,9 @@ const UserAccountNav = async ({
           )}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <SignOutButton>Log out</SignOutButton>
-        </DropdownMenuItem>
+        <SignOutButton>
+          <DropdownMenuItem>Log out</DropdownMenuItem>
+        </SignOutButton>
       </DropdownMenuContent>
     </DropdownMenu>
   )
