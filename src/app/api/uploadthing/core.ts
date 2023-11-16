@@ -1,5 +1,5 @@
 import { db } from '@/db'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+import { auth } from '@clerk/nextjs'
 import { createUploadthing, type FileRouter } from 'uploadthing/next'
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf'
 import { pinecone } from '@/lib/pinecone'
@@ -11,16 +11,12 @@ import { PLANS } from '@/config/stripe'
 const f = createUploadthing()
 
 const middleware = async () => {
-  const { getUser } = getKindeServerSession()
-  const user = await getUser()
 
-  if (!user || !user.id) {
-    throw new Error('Unauthorized')
-  }
+  const { userId } = auth()
 
   const subscriptionPlan = await getUserSubscriptionPlan()
 
-  return { subscriptionPlan, userId: user.id }
+  return { subscriptionPlan, userId }
 }
 
 const onUploadComplete = async ({

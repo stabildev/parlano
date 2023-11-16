@@ -1,5 +1,5 @@
-import { db } from '@/db'
 import { stripe } from '@/lib/stripe'
+import { clerkClient } from '@clerk/nextjs'
 import { headers } from 'next/headers'
 import type Stripe from 'stripe'
 
@@ -35,11 +35,10 @@ export async function POST(request: Request) {
       session.subscription as string
     )
 
-    await db.user.update({
-      where: {
-        id: session.metadata.userId,
-      },
-      data: {
+    // todo update user metadata
+
+    await clerkClient.users.updateUserMetadata(session.metadata.userId, {
+      privateMetadata: {
         stripeSubscriptionId: subscription.id,
         stripeCustomerId: subscription.customer as string,
         stripePriceId: subscription.items.data[0]?.price.id,
@@ -56,11 +55,10 @@ export async function POST(request: Request) {
       session.subscription as string
     )
 
-    await db.user.update({
-      where: {
+    await clerkClient.users.updateUserMetadata(session.metadata.userId, {
+      privateMetadata: {
         stripeSubscriptionId: subscription.id,
-      },
-      data: {
+        stripeCustomerId: subscription.customer as string,
         stripePriceId: subscription.items.data[0]?.price.id,
         stripeCurrentPeriodEnd: new Date(
           subscription.current_period_end * 1000

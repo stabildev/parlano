@@ -1,19 +1,14 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
-import { buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import Link from 'next/link'
-import {
-  LoginLink,
-  RegisterLink,
-  getKindeServerSession,
-} from '@kinde-oss/kinde-auth-nextjs/server'
 import { ArrowRightIcon } from 'lucide-react'
 import UserAccountNav from '@/components/UserAccountNav'
 import MobileNav from '@/components/MobileNav'
 import { HoverShine } from '@/components/HoverShine'
+import { SignInButton, SignUpButton, auth, currentUser } from '@clerk/nextjs'
 
 const Navbar = async () => {
-  const { getUser } = getKindeServerSession()
-  const user = await getUser()
+  const user = await currentUser()
 
   return (
     <nav className="fixed inset-x-0 top-0 z-30 h-14 w-full border-b border-border backdrop-blur transition-all dark:border-zinc-500/20">
@@ -38,25 +33,21 @@ const Navbar = async () => {
                 >
                   Pricing
                 </Link>
-                <LoginLink
-                  className={buttonVariants({
-                    variant: 'ghost',
-                    size: 'sm',
-                  })}
-                >
-                  Sign in
-                </LoginLink>
+                <SignInButton>
+                  <Button variant="ghost" size="sm">
+                    Sign in
+                  </Button>
+                </SignInButton>
                 <HoverShine>
-                  <RegisterLink
-                    className={buttonVariants({
-                      size: 'sm',
-                      className:
-                        'bg-gradient-to-r from-violet-600 to-rose-600 shadow',
-                      variant: 'secondary',
-                    })}
-                  >
-                    Get started <ArrowRightIcon className="ml-2 h-5 w-5" />
-                  </RegisterLink>
+                  <SignUpButton>
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      className="bg-gradient-to-r from-violet-600 to-rose-600 shadow"
+                    >
+                      Get started <ArrowRightIcon className="ml-2 h-5 w-5" />
+                    </Button>
+                  </SignUpButton>
                 </HoverShine>
               </>
             ) : (
@@ -72,12 +63,11 @@ const Navbar = async () => {
                 </Link>
                 <UserAccountNav
                   name={
-                    [user.given_name, user.family_name]
-                      .filter(Boolean)
-                      .join(' ') || 'Your Account'
+                    [user.firstName, user.lastName].filter(Boolean).join(' ') ||
+                    'Your Account'
                   }
-                  email={user.email}
-                  imageUrl={user.picture}
+                  email={user.emailAddresses[0].emailAddress}
+                  imageUrl={user.imageUrl}
                 />
               </>
             )}

@@ -8,10 +8,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
-import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components'
+import { SignOutButton } from '@clerk/nextjs'
 import { User2Icon, UserIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+
+// todo: add logout link
 
 const UserAccountNav = async ({
   email,
@@ -76,7 +78,7 @@ const UserAccountNav = async ({
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <LogoutLink>Log out</LogoutLink>
+          <SignOutButton>Log out</SignOutButton>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

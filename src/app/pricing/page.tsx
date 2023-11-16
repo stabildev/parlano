@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/tooltip'
 import { PLANS } from '@/config/stripe'
 import { cn } from '@/lib/utils'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+import { auth } from '@clerk/nextjs'
 import {
   ArrowRightIcon,
   CheckIcon,
@@ -19,8 +19,7 @@ import {
 import Link from 'next/link'
 
 const Page = async () => {
-  const { getUser } = getKindeServerSession()
-  const user = await getUser()
+  const { userId } = auth()
 
   const pricingItems = [
     {
@@ -181,16 +180,16 @@ const Page = async () => {
                 <div className="p-5">
                   {plan === 'Free' ? (
                     <Link
-                      href={user ? '/dashboard' : '/sign-in'}
+                      href={userId ? '/dashboard' : '/sign-in'}
                       className={buttonVariants({
                         className: 'w-full ',
                         variant: 'secondary',
                       })}
                     >
-                      {user ? 'Upgrade now' : 'Sign up'}
+                      {userId ? 'Upgrade now' : 'Sign up'}
                       <ArrowRightIcon className="ml-1.5 h-5 w-5" />
                     </Link>
-                  ) : user ? (
+                  ) : userId ? (
                     <UpgradeButton />
                   ) : (
                     <Link
@@ -201,7 +200,7 @@ const Page = async () => {
                         variant: 'secondary',
                       })}
                     >
-                      {user ? 'Upgrade now' : 'Sign up'}
+                      {userId ? 'Upgrade now' : 'Sign up'}
                       <ArrowRightIcon className="ml-1.5 h-5 w-5" />
                     </Link>
                   )}

@@ -1,6 +1,6 @@
 import { db } from '@/db'
 import { receiveMessageValidator } from '@/lib/validators/ReceiveMessageValidator'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+import { auth } from '@clerk/nextjs'
 
 export const POST = async (req: Request) => {
   // check if request comes from cloud worker
@@ -19,9 +19,7 @@ export const POST = async (req: Request) => {
   }
 
   // Authorize user
-  const { getUser } = getKindeServerSession()
-  const user = await getUser()
-  const userId = user?.id
+  const { userId } = auth()
 
   if (!userId) {
     return new Response('Unauthorized', { status: 401 })

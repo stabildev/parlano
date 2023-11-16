@@ -6,6 +6,7 @@ import { Inter, PT_Serif } from 'next/font/google'
 
 import { Provider as TrpcProvider } from '@/app/_trpc/Provider'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from '@/components/ui/toaster'
 import Navbar from '@/components/Navbar'
 import { cn, constructMetadata } from '@/lib/utils'
@@ -27,25 +28,27 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          'font-sans min-h-screen antialiased',
-          inter.className,
-          ptSerif.variable
-        )}
-      >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TrpcProvider>
-            <Toaster />
-            <Navbar />
-            <div className="flex min-h-screen flex-col">
-              <div className="mt-14 flex flex-grow flex-col">{children}</div>
-              <Footer />
-            </div>
-          </TrpcProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={cn(
+            'font-sans min-h-screen antialiased',
+            inter.className,
+            ptSerif.variable
+          )}
+        >
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <TrpcProvider>
+              <Toaster />
+              <Navbar />
+              <div className="flex min-h-screen flex-col">
+                <div className="mt-14 flex flex-grow flex-col">{children}</div>
+                <Footer />
+              </div>
+            </TrpcProvider>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

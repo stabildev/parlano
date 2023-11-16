@@ -2,10 +2,10 @@ import { db } from '@/db'
 import { pinecone } from '@/lib/pinecone'
 import { buildPrompt } from '@/lib/prompt'
 import { sendMessageValidator } from '@/lib/validators/SendMessageValidator'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { PineconeStore } from 'langchain/vectorstores/pinecone'
 import { NextRequest } from 'next/server'
+import { auth } from '@clerk/nextjs'
 
 export const POST = async (req: NextRequest) => {
   // check if request comes from cloud worker
@@ -25,9 +25,7 @@ export const POST = async (req: NextRequest) => {
 
   const body = await req.json()
 
-  const { getUser } = getKindeServerSession()
-  const user = await getUser()
-  const userId = user?.id
+  const { userId } = auth()
 
   if (!userId) {
     return new Response('Unauthorized', { status: 401 })

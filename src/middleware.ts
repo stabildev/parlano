@@ -1,11 +1,9 @@
-import { withAuth } from '@kinde-oss/kinde-auth-nextjs/middleware'
+import { authMiddleware } from '@clerk/nextjs'
+
+export default authMiddleware({
+  publicRoutes: ['/', '/pricing'],
+})
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/auth-callback'],
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 }
-
-export default withAuth(async function middleware(req: any) {}, {
-  isAuthorized: ({ user }: { user: any }) => {
-    return user?.id
-  },
-})

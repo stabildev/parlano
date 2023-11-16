@@ -1,6 +1,4 @@
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
-
-import { privateProcedure, publicProcedure, router } from './trpc'
+import { privateProcedure, router } from './trpc'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
@@ -13,40 +11,8 @@ import { PLANS } from '@/config/stripe'
 import { utapi } from '@/server/utapi'
 
 export const appRouter = router({
-  authCallback: publicProcedure.query(async () => {
-    const { getUser } = getKindeServerSession()
-    const user = await getUser()
-
-    if (!user?.id || !user.email) {
-      throw new TRPCError({
-        code: 'UNAUTHORIZED',
-        message: 'Unauthorized',
-      })
-    }
-
-    // check if user is in db
-    const dbUser = await db.user.findUnique({
-      where: {
-        id: user.id,
-      },
-    })
-
-    if (!dbUser) {
-      // create db user
-      await db.user.create({
-        data: {
-          id: user.id,
-          email: user.email,
-        },
-      })
-    }
-
-    return {
-      success: true,
-    }
-  }),
-
   getUserFiles: privateProcedure.query(async ({ ctx }) => {
+    console.log('ctx', ctx)
     const files = await db.file.findMany({
       where: {
         userId: ctx.userId,
@@ -209,24 +175,13 @@ export const appRouter = router({
       })
     }
 
-    const dbUser = await db.user.findUnique({
-      where: {
-        id: userId,
-      },
-    })
-
-    if (!dbUser) {
-      throw new TRPCError({
-        code: 'NOT_FOUND',
-        message: 'User not found',
-      })
-    }
-
     const subscriptionPlan = await getUserSubscriptionPlan()
 
-    if (subscriptionPlan.isSubscribed && dbUser.stripeCustomerId) {
+    const { stripeCustomerId } = subscriptionPlan
+
+    if (subscriptionPlan.isSubscribed && stripeCustomerId) {
       const stripeSession = await stripe.billingPortal.sessions.create({
-        customer: dbUser.stripeCustomerId,
+        customer: stripeCustomerId,
         return_url: billingUrl,
       })
 

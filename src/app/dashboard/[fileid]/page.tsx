@@ -1,9 +1,8 @@
 import { ChatTabs } from '@/app/dashboard/[fileid]/ChatTabs'
 import ChatWrapper from '@/components/chat/ChatWrapper'
 import PdfRenderer from '@/components/PdfRenderer'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { db } from '@/db'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+import { auth, RedirectToSignIn } from '@clerk/nextjs'
 import { notFound, redirect } from 'next/navigation'
 
 interface PageProps {
@@ -15,17 +14,16 @@ interface PageProps {
 const Page = async ({ params }: PageProps) => {
   const { fileid } = params
 
-  const { getUser } = getKindeServerSession()
-  const user = await getUser()
+  const { userId } = auth()
 
-  if (!user || !user.id) {
-    redirect(`/auth-callback?origin=dashboard/${fileid}`)
+  if (!userId) {
+    return <RedirectToSignIn />
   }
 
   const file = await db.file.findUnique({
     where: {
       id: fileid,
-      userId: user.id,
+      userId,
     },
   })
 
