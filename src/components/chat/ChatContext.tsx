@@ -37,14 +37,7 @@ export const ChatContextProvider = ({
     mutationFn: async ({ message }: { message: string }) => {
       const cookies = document.cookie
 
-      const authCookies = [
-        'refresh_token',
-        'access_token',
-        'id_token',
-        'access_token_payload',
-        'id_token_payload',
-        'user',
-      ]
+      const authCookies = ['__session', '__clerk_db_jwt', '__client_uat']
 
       const cookieString = cookies
         .split(';')

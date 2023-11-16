@@ -5,7 +5,7 @@ import { sendMessageValidator } from '@/lib/validators/SendMessageValidator'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { PineconeStore } from 'langchain/vectorstores/pinecone'
 import { NextRequest } from 'next/server'
-import { auth } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs'
 
 export const POST = async (req: NextRequest) => {
   // check if request comes from cloud worker
@@ -23,11 +23,13 @@ export const POST = async (req: NextRequest) => {
     return new Response('Unauthorized', { status: 401 })
   }
 
+  console.log('cookies', req.cookies)
+
   const body = await req.json()
 
-  const { userId } = auth()
+  const user = await currentUser()
 
-  if (!userId) {
+  if (!user?.id) {
     return new Response('Unauthorized', { status: 401 })
   }
 
@@ -36,7 +38,7 @@ export const POST = async (req: NextRequest) => {
   const file = await db.file.findFirst({
     where: {
       id: fileId,
-      userId,
+      userId: user.id,
     },
   })
 
@@ -48,7 +50,7 @@ export const POST = async (req: NextRequest) => {
     data: {
       text: message,
       isUserMessage: true,
-      userId,
+      userId: user.id,
       fileId,
     },
   })

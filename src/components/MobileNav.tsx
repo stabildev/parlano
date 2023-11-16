@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { SignInButton, SignOutButton, SignUpButton } from '@clerk/nextjs'
 import { ArrowRightIcon, MenuIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -36,36 +37,39 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                 </li>
                 <li className="my-3 h-px w-full bg-gray-300" />
                 <li>
-                  <Link
-                    className="flex w-full items-center font-semibold"
-                    href="/sign-out"
-                    onClick={() => setOpen(false)}
-                  >
-                    Sign out
-                  </Link>
+                  <SignOutButton>
+                    <button
+                      className="flex w-full items-center font-semibold"
+                      // onClick={() => setOpen(false)}
+                    >
+                      Sign out
+                    </button>
+                  </SignOutButton>
                 </li>
               </>
             ) : (
               <>
                 <li>
-                  <Link
-                    className="flex w-full items-center bg-gradient-to-r from-violet-600 to-rose-600 to-50% bg-clip-text font-semibold text-transparent"
-                    href="/sign-up"
-                    onClick={() => setOpen(false)}
-                  >
-                    Get started
-                    <ArrowRightIcon className="ml-2 h-5 w-5 text-rose-500" />
-                  </Link>
+                  <SignUpButton>
+                    <button
+                      className="flex w-full items-center bg-gradient-to-r from-violet-600 to-rose-600 to-50% bg-clip-text font-semibold text-transparent"
+                      // onClick={() => setOpen(false)}
+                    >
+                      Get started
+                      <ArrowRightIcon className="ml-2 h-5 w-5 text-rose-500" />
+                    </button>
+                  </SignUpButton>
                 </li>
                 <li className="my-3 h-px w-full bg-gray-300" />
                 <li>
-                  <Link
-                    className="flex w-full items-center font-semibold"
-                    href="/sign-in"
-                    onClick={() => setOpen(false)}
-                  >
-                    Sign in
-                  </Link>
+                  <SignInButton>
+                    <button
+                      className="flex w-full items-center font-semibold"
+                      // onClick={() => setOpen(false)}
+                    >
+                      Sign in
+                    </button>
+                  </SignInButton>
                 </li>
                 <li className="my-3 h-px w-full bg-gray-300" />
                 <li>
