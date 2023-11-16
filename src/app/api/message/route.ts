@@ -23,7 +23,9 @@ export const POST = async (req: NextRequest) => {
     return new Response('Unauthorized', { status: 401 })
   }
 
-  console.log('cookies', req.cookies)
+  const cookies = req.headers.get('Cookie')
+
+  console.log('cookies', cookies)
 
   const body = await req.json()
 
