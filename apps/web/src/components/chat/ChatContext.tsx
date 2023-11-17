@@ -3,7 +3,6 @@ import { useToast } from '../ui/use-toast'
 import { INFINITE_QUERY_LIMIT } from '../../config/infinite-query'
 import { useAuth } from '@clerk/nextjs'
 import { useMutation } from '@tanstack/react-query'
-import { OpenAIStream, StreamingTextResponse } from 'ai'
 import { ChangeEvent, createContext, useState } from 'react'
 
 type StreamResponse = {
@@ -53,14 +52,13 @@ export const ChatContextProvider = ({
         }),
       })
 
+      console.log('response', response)
+
       if (!response.ok) {
         throw new Error('Failed to send message')
       }
 
-      const openAIStream = OpenAIStream(response)
-      const streamResponse = new StreamingTextResponse(openAIStream)
-
-      return streamResponse.body
+      return response.body
     },
     onMutate: async ({ message }) => {
       // back up the message for restoration in case of error

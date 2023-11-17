@@ -24,16 +24,12 @@ export const POST = async (req: NextRequest) => {
   // Authenticate user
   const { sessionId, token } = body
 
-  console.log('sessionId', sessionId)
-  console.log('token', token)
-
   if (!sessionId || !token) {
     return new Response('Unauthorized', { status: 401 })
   }
 
   const session = await clerkClient.sessions.verifySession(sessionId, token)
   const userId = session?.userId
-  console.log('userId', userId)
 
   if (!userId) {
     return new Response('Unauthorized', { status: 401 })

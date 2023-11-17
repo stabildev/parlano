@@ -2,6 +2,8 @@
   "name": "@parlano/web",
   "version": "0.1.0",
   "private": true,
+  "description": "",
+  "author": "Henrik Klee",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
