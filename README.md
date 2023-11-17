@@ -1,3 +1,5 @@
+Originally inspired by the SaaS tutorial by Josh tried coding on YT: https://www.youtube.com/watch?v=ucX2zXAZ1I0
+
 # Changelog
 
 - Migrate to React Query 5
