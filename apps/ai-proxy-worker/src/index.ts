@@ -1,32 +1,104 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
+/* eslint-disable import/no-anonymous-default-export */
+
+import OpenAI from 'openai';
+import { handleOptions } from './preflight';
+import { OpenAIStream } from 'ai';
 
 export interface Env {
-	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-	// MY_KV_NAMESPACE: KVNamespace;
-	//
-	// Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-	// MY_DURABLE_OBJECT: DurableObjectNamespace;
-	//
-	// Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-	// MY_BUCKET: R2Bucket;
-	//
-	// Example binding to a Service. Learn more at https://developers.cloudflare.com/workers/runtime-apis/service-bindings/
-	// MY_SERVICE: Fetcher;
-	//
-	// Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
-	// MY_QUEUE: Queue;
+	OPENAI_API_KEY: string;
+	PARLANO_CLOUDWORKER_SECRET: string;
+	NEXT_PUBLIC_URL: string;
 }
+
+const corsHeaders = new Headers({
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+	'Access-Control-Allow-Headers': '*',
+});
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		return new Response('Hello World!');
+		console.log('Incoming request', request);
+		// Handle CORS preflight request
+		if (request.method === 'OPTIONS') {
+			return handleOptions(request);
+		}
+
+		// 1) Extract session and request body
+		try {
+			const body = await request.json();
+			const { message, fileId, sessionId, token } = body as any;
+
+			if (!sessionId || !token) {
+				return new Response('Unauthorized', { status: 401 });
+			}
+
+			if (!message || !fileId) {
+				return new Response('Invalid data', { status: 400 });
+			}
+
+			const headers = {
+				Authorization: `Bearer ${env.PARLANO_CLOUDWORKER_SECRET}`,
+				'Content-Type': 'application/json',
+			};
+
+			// Request prompt from backend
+			const response = await fetch(`${env.NEXT_PUBLIC_URL}/api/message`, {
+				method: 'POST',
+				headers,
+				body: JSON.stringify({
+					message,
+					fileId,
+					sessionId,
+					token,
+				}),
+			});
+
+			if (!response.ok) {
+				return new Response('Request failed', { status: response.status });
+			}
+
+			// 2) Extract prompt messages from response
+			try {
+				const data = (await response.json()) as any;
+				const { messages } = data;
+
+				// 3) OpenAI request
+				const openai = new OpenAI({
+					apiKey: env.OPENAI_API_KEY,
+				});
+
+				const openAIResponse = await openai.chat.completions.create({
+					model: 'gpt-3.5-turbo',
+					temperature: 0,
+					stream: true,
+					messages,
+				});
+
+				const stream = OpenAIStream(openAIResponse, {
+					onCompletion: async (completion: string) => {
+						// After stream ends, send complete message to backend to save in db
+						await fetch(`${env.NEXT_PUBLIC_URL}/api/post-stream`, {
+							method: 'POST',
+							headers,
+							body: JSON.stringify({
+								message: completion,
+								fileId,
+								sessionId,
+								token,
+							}),
+						});
+					},
+				});
+
+				// 4) Stream to client
+				return new Response(stream, { headers: corsHeaders });
+			} catch (error) {
+				console.error(error);
+				return new Response('Internal server error', { status: 500, headers: corsHeaders });
+			}
+		} catch (error) {
+			return new Response('Bad request', { status: 400 });
+		}
 	},
 };
