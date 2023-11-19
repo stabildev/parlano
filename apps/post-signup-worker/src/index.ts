@@ -1,7 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
+import { type UserWebhookEvent } from '@clerk/clerk-sdk-node';
+import Clerk from '@clerk/clerk-sdk-node/esm/instance';
 import { Unkey } from '@unkey/api';
 import { Webhook } from 'svix';
-import { type UserWebhookEvent, Clerk } from '@clerk/clerk-sdk-node';
 
 export interface Env {
 	UNKEY_TOKEN: string;
