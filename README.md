@@ -2,13 +2,20 @@ Originally inspired by the SaaS tutorial by Josh tried coding on YT: https://www
 
 # Changelog
 
-- Migrate to React Query 5
-- Switched from Kinde Auth to Clerk
-- Fixed Pinecone
-- Dark Mode
-- Tabbed chat layout on mobile
-- Fixed mobile uploads
-- Fixed serverless function timeout by using cloudflare worker
-- Switched to Turborepo
+- Implemente API rate limiting w/ Unkey
+- Switched to Turborepo for cloudflare worker
+- Switched to Clerk
 - Improved prompt
-- Fixed uploadthing issues and implemented file deletion
+- Fixed serverless function timeout by routing openai requests through cloudflare worker
+- Fixed mobile uploads
+- Implemented file deletion
+- Fixed uploadthing urls
+- Tabbed chat layout on mobile
+- Dark Mode
+- Fixed Pinecone
+- Migrated to React Query 5
+
+# To do
+
+- Propagate stripe renewal to Unkey & Clerk
+- Optimize code and env var sharing within monorepo

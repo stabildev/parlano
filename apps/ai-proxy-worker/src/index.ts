@@ -3,11 +3,16 @@
 import OpenAI from 'openai';
 import { handleOptions } from './preflight';
 import { OpenAIStream } from 'ai';
+import { validateKey } from './unkey';
+import Clerk from '@clerk/clerk-sdk-node/esm/instance';
 
 export interface Env {
 	OPENAI_API_KEY: string;
 	PARLANO_CLOUDWORKER_SECRET: string;
 	NEXT_PUBLIC_URL: string;
+	UNKEY_TOKEN: string;
+	UNKEY_API_ID: string;
+	CLERK_SECRET_KEY: string;
 }
 
 const corsHeaders = new Headers({
@@ -18,7 +23,6 @@ const corsHeaders = new Headers({
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		console.log('Incoming request', request);
 		// Handle CORS preflight request
 		if (request.method === 'OPTIONS') {
 			return handleOptions(request);
@@ -27,15 +31,97 @@ export default {
 		// 1) Extract session and request body
 		try {
 			const body = await request.json();
-			const { message, fileId, sessionId, token } = body as any;
+			console.log('body', body);
+			// sessionId and token come from Clerk
+			const { message, fileId, sessionId, token, userId, userKey, proKey } = body as {
+				message?: string;
+				fileId?: string;
+				sessionId?: string;
+				token?: string;
+				userId?: string;
+				userKey?: string;
+				proKey?: string;
+			};
 
-			if (!sessionId || !token) {
+			if (!sessionId || !token || !userId || !userKey) {
 				return new Response('Unauthorized', { status: 401 });
 			}
 
 			if (!message || !fileId) {
 				return new Response('Invalid data', { status: 400 });
 			}
+
+			// check if api key is valid
+			const keyValid = await validateKey({
+				key: proKey ?? userKey,
+				userId,
+				env,
+			});
+
+			// handle invalid unkey
+			if (!keyValid.success) {
+				switch (keyValid.error.code) {
+					case 'UNAUTHORIZED':
+						// If only the free key was supplied, we can't do anything
+						if (!proKey) {
+							return new Response('Unauthorized', { status: 401 });
+						}
+
+						// If a pro key has expired, we need to switch the user back to free plan
+
+						// Remove expired pro key from clerk metadata
+						const clerkClient = Clerk({
+							secretKey: env.CLERK_SECRET_KEY!,
+						});
+
+						console.log('Clerk userId', userId);
+
+						const user = await clerkClient.users.getUser(userId).catch((err) => {
+							console.error('Error getting user', err);
+							return null;
+						});
+
+						console.log('Clerk user', user);
+
+						if (!user) {
+							return new Response('Unauthorized', { status: 401 });
+						}
+
+						const { publicMetadata } = user;
+						publicMetadata.parlanoProKey = null;
+						console.log('Clerk publicMetadata', publicMetadata);
+
+						// Don't await this, we don't want to further block the request
+						const user2 = await clerkClient.users
+							.updateUserMetadata(userId, {
+								publicMetadata,
+							})
+							.catch((err) => {
+								console.error('Error updating user metadata', err);
+								return null;
+							});
+
+						console.log('Clerk updated user metadata', user2);
+
+						// Check if free key is valid for this request
+						const freeKeyValid = await validateKey({
+							key: userKey,
+							userId,
+							env,
+						});
+
+						// If the free key is invalid, we can't do anything
+						if (!freeKeyValid.success) {
+							return new Response('Unauthorized', { status: 401 });
+						}
+
+						break;
+					default:
+						return new Response('Internal server error', { status: 500 });
+				}
+			}
+
+			// at this point we know the key is valid and the user is authorized to access openai
 
 			const headers = {
 				Authorization: `Bearer ${env.PARLANO_CLOUDWORKER_SECRET}`,

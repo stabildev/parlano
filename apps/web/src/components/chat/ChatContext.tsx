@@ -1,7 +1,7 @@
 import { trpc } from '../../app/_trpc/client'
 import { useToast } from '../ui/use-toast'
 import { INFINITE_QUERY_LIMIT } from '../../config/infinite-query'
-import { useAuth } from '@clerk/nextjs'
+import { useAuth, useUser } from '@clerk/nextjs'
 import { useMutation } from '@tanstack/react-query'
 import { ChangeEvent, createContext, useState } from 'react'
 
@@ -32,7 +32,10 @@ export const ChatContextProvider = ({
   const { toast } = useToast()
 
   const utils = trpc.useUtils()
-  const { sessionId, getToken } = useAuth()
+  const { sessionId, getToken, userId } = useAuth()
+  const { user } = useUser()
+  const userKey = user?.publicMetadata['parlanoKey'] // todo move this to backend
+  const proKey = user?.publicMetadata['parlanoProKey'] // todo move this to backend
 
   const { mutate: sendMessage } = useMutation({
     mutationFn: async ({ message }: { message: string }) => {
@@ -49,10 +52,11 @@ export const ChatContextProvider = ({
           message,
           sessionId,
           token: await getToken(),
+          userId,
+          userKey,
+          proKey,
         }),
       })
-
-      console.log('response', response)
 
       if (!response.ok) {
         throw new Error('Failed to send message')

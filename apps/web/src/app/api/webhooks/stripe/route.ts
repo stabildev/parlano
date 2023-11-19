@@ -35,8 +35,6 @@ export async function POST(request: Request) {
       session.subscription as string
     )
 
-    // todo update user metadata
-
     await clerkClient.users.updateUserMetadata(session.metadata.userId, {
       privateMetadata: {
         stripeSubscriptionId: subscription.id,

@@ -17,9 +17,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "overrides": {
-    "@uploadthing/react": {
-      "next": "^14.0.2"
+  "pnpm": {
+    "overrides": {
+      "@uploadthing/react>next": "^14.0.2"
     }
   }
 }
