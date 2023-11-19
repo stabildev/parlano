@@ -7,7 +7,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
-import { getUserSubscriptionPlan } from '../lib/stripe'
 import { SignOutButton } from '@clerk/nextjs'
 import { User2Icon } from 'lucide-react'
 import Image from 'next/image'
@@ -17,13 +16,13 @@ const UserAccountNav = async ({
   email,
   imageUrl,
   name,
+  isPro,
 }: {
   email: string | null
   imageUrl: string | null
   name: string
+  isPro: boolean
 }) => {
-  const subscriptionPlan = await getUserSubscriptionPlan()
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -68,7 +67,7 @@ const UserAccountNav = async ({
           <Link href="/dashboard">Dashboard</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          {subscriptionPlan?.isSubscribed ? (
+          {isPro ? (
             <Link href="/dashboard/billing">Manage Subscription</Link>
           ) : (
             <Link href="/pricing">Upgrade</Link>

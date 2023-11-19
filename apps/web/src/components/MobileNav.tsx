@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
+const MobileNav = ({ isAuth, isPro }: { isAuth: boolean; isPro: boolean }) => {
   const [open, setOpen] = useState(false)
 
   const pathname = usePathname()
@@ -35,13 +35,25 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                     Dashboard
                   </Link>
                 </li>
-                <li className="my-3 h-px w-full bg-gray-300" />
+                {isPro ? (
+                  <Link
+                    className="flex w-full items-center font-semibold"
+                    href="/dashboard/billing"
+                  >
+                    Manage Subscription
+                  </Link>
+                ) : (
+                  <Link
+                    className="flex w-full items-center font-semibold"
+                    href="/pricing"
+                  >
+                    Upgrade
+                  </Link>
+                )}
+                <li className="my-3 h-px w-full bg-zinc-300 dark:bg-zinc-800" />
                 <li>
                   <SignOutButton>
-                    <button
-                      className="flex w-full items-center font-semibold"
-                      // onClick={() => setOpen(false)}
-                    >
+                    <button className="flex w-full items-center font-semibold">
                       Sign out
                     </button>
                   </SignOutButton>
@@ -51,27 +63,21 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
               <>
                 <li>
                   <SignUpButton>
-                    <button
-                      className="flex w-full items-center bg-gradient-to-r from-violet-600 to-rose-600 to-50% bg-clip-text font-semibold text-transparent"
-                      // onClick={() => setOpen(false)}
-                    >
+                    <button className="flex w-full items-center bg-gradient-to-r from-violet-600 to-rose-600 to-50% bg-clip-text font-semibold text-transparent">
                       Get started
                       <ArrowRightIcon className="ml-2 h-5 w-5 text-rose-500" />
                     </button>
                   </SignUpButton>
                 </li>
-                <li className="my-3 h-px w-full bg-gray-300" />
+                <li className="my-3 h-px w-full bg-zinc-300 dark:bg-zinc-800" />
                 <li>
                   <SignInButton>
-                    <button
-                      className="flex w-full items-center font-semibold"
-                      // onClick={() => setOpen(false)}
-                    >
+                    <button className="flex w-full items-center font-semibold">
                       Sign in
                     </button>
                   </SignInButton>
                 </li>
-                <li className="my-3 h-px w-full bg-gray-300" />
+                <li className="my-3 h-px w-full bg-zinc-300 dark:bg-zinc-800" />
                 <li>
                   <Link
                     className="flex w-full items-center font-semibold"

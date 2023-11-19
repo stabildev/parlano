@@ -6,9 +6,11 @@ import UserAccountNav from './UserAccountNav'
 import MobileNav from './MobileNav'
 import { HoverShine } from './HoverShine'
 import { SignInButton, SignUpButton, currentUser } from '@clerk/nextjs'
+import { getUserSubscriptionPlan } from '@/lib/stripe'
 
 const Navbar = async () => {
   const user = await currentUser()
+  const subscriptionPlan = await getUserSubscriptionPlan()
 
   return (
     <nav className="border-border fixed inset-x-0 top-0 z-30 h-14 w-full border-b backdrop-blur transition-all dark:border-zinc-500/20">
@@ -20,7 +22,7 @@ const Navbar = async () => {
           >
             parlano.
           </Link>
-          <MobileNav isAuth={!!user} />
+          <MobileNav isAuth={!!user} isPro={subscriptionPlan.isSubscribed} />
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? (
               <>
@@ -66,6 +68,7 @@ const Navbar = async () => {
                     [user.firstName, user.lastName].filter(Boolean).join(' ') ||
                     'Your Account'
                   }
+                  isPro={subscriptionPlan.isSubscribed}
                   email={user.emailAddresses[0].emailAddress}
                   imageUrl={user.imageUrl}
                 />

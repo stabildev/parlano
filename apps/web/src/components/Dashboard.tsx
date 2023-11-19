@@ -46,7 +46,7 @@ const Dashboard = ({ isSubscribed }: { isSubscribed: boolean }) => {
 
   return (
     <main className="mx-auto w-full max-w-7xl px-4 md:p-10">
-      <div className="flex flex-row items-center justify-between gap-4 border-b border-gray-200 py-8 dark:border-zinc-800 sm:gap-0">
+      <div className="flex flex-row items-center justify-between gap-4 border-b border-zinc-200 py-8 dark:border-zinc-800 sm:gap-0">
         <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-200 sm:text-5xl">
           My Files
         </h1>
@@ -66,7 +66,7 @@ const Dashboard = ({ isSubscribed }: { isSubscribed: boolean }) => {
             .map((file) => (
               <li
                 key={file.id}
-                className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow transition hover:shadow-lg dark:divide-zinc-800 dark:border dark:border-zinc-800/50 dark:bg-zinc-900/50"
+                className="col-span-1 divide-y divide-zinc-200 rounded-lg bg-white shadow transition hover:shadow-lg dark:divide-zinc-800 dark:border dark:border-zinc-800/50 dark:bg-zinc-900/50"
               >
                 <Link
                   href={`/dashboard/${file.id}`}
