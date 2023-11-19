@@ -121,10 +121,10 @@ export default {
 
 			// Create new pro plan API key in Unkey on user upgrade
 			case 'user.updated': {
-				const { id: userId, public_metadata: publicMetadata } = evt.data;
+				const { id: userId, public_metadata: publicMetadata, private_metadata: privateMetadata } = evt.data;
 
 				// Check if user is on pro plan and still has time left
-				const { stripeCurrentPeriodEnd } = publicMetadata as { stripeCurrentPeriodEnd?: string };
+				const { stripeCurrentPeriodEnd } = privateMetadata as { stripeCurrentPeriodEnd?: string };
 
 				// If the user is not on pro plan or pro plan has expired, do nothing
 				// This is handled automatically by Unkey via expiring API keys
