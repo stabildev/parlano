@@ -34,8 +34,12 @@ export const ChatContextProvider = ({
   const utils = trpc.useUtils()
   const { sessionId, getToken, userId } = useAuth()
   const { user } = useUser()
-  const userKey = user?.publicMetadata['parlanoKey'] // todo move this to backend
-  const proKey = user?.publicMetadata['parlanoProKey'] // todo move this to backend
+
+  if (!user) {
+    throw new Error('Missing user')
+  }
+
+  const { freePlanKey, proPlanKey } = user.publicMetadata
 
   const { mutate: sendMessage } = useMutation({
     mutationFn: async ({ message }: { message: string }) => {
@@ -53,8 +57,8 @@ export const ChatContextProvider = ({
           sessionId,
           token: await getToken(),
           userId,
-          userKey,
-          proKey,
+          freePlanKey,
+          proPlanKey,
         }),
       })
 
