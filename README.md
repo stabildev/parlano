@@ -19,3 +19,4 @@ Originally inspired by the SaaS tutorial by Josh tried coding on YT: https://www
 
 - Propagate stripe renewal to Unkey & Clerk
 - Optimize code and env var sharing within monorepo
+- Clean up workers
