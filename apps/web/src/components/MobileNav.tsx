@@ -35,6 +35,7 @@ const MobileNav = ({ isAuth, isPro }: { isAuth: boolean; isPro: boolean }) => {
                     Dashboard
                   </Link>
                 </li>
+                <li className="my-3 h-px w-full bg-zinc-300 dark:bg-zinc-800" />
                 {isPro ? (
                   <Link
                     className="flex w-full items-center font-semibold"
