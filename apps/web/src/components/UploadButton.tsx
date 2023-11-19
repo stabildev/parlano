@@ -71,6 +71,10 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
         const res = await startUpload(acceptedFile)
 
         if (!res) {
+          // Most likely timeout. Todo: handle this better
+          router.refresh()
+          return
+
           return toast({
             title: 'Something went wrong',
             description: 'Please try again later',
