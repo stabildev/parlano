@@ -1,4 +1,8 @@
-export function handleOptions(request: Request) {
+/**
+ * Handle CORS preflight requests and OPTIONS requests.
+ */
+
+export const handleOptions = (request: Request): Response => {
 	let headers = request.headers;
 
 	// Make sure the necessary headers are present for this to be a valid preflight request
@@ -21,4 +25,14 @@ export function handleOptions(request: Request) {
 			},
 		});
 	}
-}
+};
+
+/**
+ * CORS headers to add to every response.
+ */
+
+export const corsHeaders = new Headers({
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+	'Access-Control-Allow-Headers': '*',
+});
