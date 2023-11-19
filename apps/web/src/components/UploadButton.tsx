@@ -28,10 +28,13 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
   )
 
   const startSimulatedProgress = () => {
+    console.log('startSimulatedProgress')
     setUploadProgress(0)
 
     const interval = setInterval(() => {
+      console.log('interval')
       setUploadProgress((prev) => {
+        console.log('setUploadProgress', prev)
         if (prev >= 95) {
           clearInterval(interval)
           return prev
@@ -89,6 +92,7 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
         startPolling({ key })
 
         clearInterval(progressInterval)
+        console.log('setUploadProgress', 100)
         setUploadProgress(100)
       }}
     >
@@ -137,7 +141,7 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
                       uploadProgress === 100 ? 'bg-green-500' : ''
                     }
                     value={uploadProgress}
-                    className="h-1 w-full bg-zinc-200"
+                    className="h-1 w-full"
                   />
                   {uploadProgress === 100 ? (
                     <div className="flex items-center justify-center gap-1 pt-2 text-center text-sm text-zinc-700">
