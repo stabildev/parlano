@@ -71,6 +71,11 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
         const res = await startUpload(acceptedFile)
 
         if (!res) {
+          // Most likely timeout. Todo: handle this better
+          await new Promise((resolve) => setTimeout(resolve, 2000))
+          window.location.reload()
+          return
+
           return toast({
             title: 'Something went wrong',
             description: 'Please try again later',
@@ -82,10 +87,6 @@ const UploadDropzone = ({ isSubscribed }: { isSubscribed: boolean }) => {
         const key = fileResponse?.key
 
         if (!key) {
-          // Most likely timeout. Todo: handle this better
-          router.refresh()
-          return
-
           return toast({
             title: 'Something went wrong',
             description: 'Please try again later',
