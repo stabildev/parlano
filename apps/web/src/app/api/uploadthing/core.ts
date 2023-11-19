@@ -1,5 +1,5 @@
 import { db } from '../../../db'
-import { auth } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs'
 import { createUploadthing, type FileRouter } from 'uploadthing/next'
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf'
 import { pinecone } from '../../../lib/pinecone'
@@ -11,11 +11,15 @@ import { PLANS } from '../../../config/stripe'
 const f = createUploadthing()
 
 const middleware = async () => {
-  const { userId } = auth()
+  const user = await currentUser()
+
+  if (!user) {
+    throw new Error('Unauthorized')
+  }
 
   const subscriptionPlan = await getUserSubscriptionPlan()
 
-  return { subscriptionPlan, userId }
+  return { subscriptionPlan, userId: user.id }
 }
 
 const onUploadComplete = async ({

@@ -7,6 +7,7 @@ export default authMiddleware({
     '/api/message',
     '/api/post-stream',
     '/api/uploadthing',
+    '/api/webhooks/stripe',
   ],
 })
 
