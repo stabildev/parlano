@@ -1,7 +1,8 @@
 'use client'
 
+import { SignOutButton } from '@/components/SignoutButton'
 import { Button } from './ui/button'
-import { SignInButton, SignOutButton, SignUpButton } from '@clerk/nextjs'
+import { SignInButton, SignUpButton } from '@clerk/nextjs'
 import { ArrowRightIcon, MenuIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -53,7 +54,7 @@ const MobileNav = ({ isAuth, isPro }: { isAuth: boolean; isPro: boolean }) => {
                 )}
                 <li className="my-3 h-px w-full bg-zinc-300 dark:bg-zinc-800" />
                 <li>
-                  <SignOutButton>
+                  <SignOutButton redirectUrl="/">
                     <button className="flex w-full items-center font-semibold">
                       Sign out
                     </button>

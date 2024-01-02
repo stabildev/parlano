@@ -1,3 +1,7 @@
+import { SignOutButton } from '@/components/SignoutButton'
+import { User2Icon } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 import { Avatar, AvatarFallback } from './ui/avatar'
 import { Button } from './ui/button'
 import {
@@ -7,10 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
-import { SignOutButton } from '@clerk/nextjs'
-import { User2Icon } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
 
 const UserAccountNav = async ({
   email,
@@ -74,7 +74,7 @@ const UserAccountNav = async ({
           )}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <SignOutButton>
+        <SignOutButton redirectUrl="/">
           <DropdownMenuItem>Log out</DropdownMenuItem>
         </SignOutButton>
       </DropdownMenuContent>
