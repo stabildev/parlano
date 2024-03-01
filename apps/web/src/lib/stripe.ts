@@ -23,9 +23,9 @@ export async function getUserSubscriptionPlan() {
 
   const {
     stripePriceId,
-    stripeCurrentPeriodEnd,
-    stripeSubscriptionId,
     stripeCustomerId,
+    stripeSubscriptionId,
+    stripeCurrentPeriodEnd,
   } = user.privateMetadata as {
     stripePriceId: string | null | undefined
     stripeCurrentPeriodEnd: string | null | undefined
@@ -33,11 +33,10 @@ export async function getUserSubscriptionPlan() {
     stripeCustomerId: string | null | undefined
   }
 
-  const isSubscribed = Boolean(
-    stripePriceId &&
-      stripeCurrentPeriodEnd && // 86400000 = 1 day
-      new Date(stripeCurrentPeriodEnd).getTime() + 86_400_000 > Date.now()
-  )
+  const isSubscribed =
+    !!stripePriceId &&
+    !!stripeCurrentPeriodEnd && // 86400000 = 1 day
+    new Date(stripeCurrentPeriodEnd).getTime() + 86_400_000 > Date.now()
 
   const plan = isSubscribed
     ? PLANS.find((plan) => plan.price.priceIds.test === stripePriceId)

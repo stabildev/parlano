@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "turbo run test",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --filter=@parlano/web",
     "build": "turbo run build",
     "start": "turbo run start",
     "lint": "turbo run lint"
